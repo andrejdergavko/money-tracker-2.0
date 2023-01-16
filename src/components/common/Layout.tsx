@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 
 import Header from './Header';
+import Sidebar from './Sidebar';
 
 interface Props {
   children: JSX.Element;
@@ -8,10 +9,13 @@ interface Props {
 
 const Layout: FC<Props> = ({ children }) => {
   return (
-    <>
-      <Header />
+    <div className="flex w-screen h-screen">
+      <Sidebar />
+      <div className="w-screen">
+        <Header />
+      </div>
       <main>{children}</main>
-    </>
+    </div>
   );
 };
 
