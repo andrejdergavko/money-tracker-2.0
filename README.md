@@ -20,4 +20,4 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-ERD https://lucid.app/lucidchart/3199dccf-ec3e-4ff0-a486-22f5c8785a75/edit?invitationId=inv_42557bd1-1d1c-4fa4-a70b-c32f7726319d&page=0_0#
+ERD https://lucid.app/lucidchart/3199dccf-ec3e-4ff0-a486-22f5c8785a75/edit?viewport_loc=-448%2C-323%2C2325%2C1108%2C0_0&invitationId=inv_42557bd1-1d1c-4fa4-a70b-c32f7726319d
