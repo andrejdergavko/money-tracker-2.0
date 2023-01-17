@@ -11,9 +11,9 @@ const Layout: FC<Props> = ({ children }) => {
   return (
     <div className="flex w-screen h-screen">
       <Sidebar />
-      <div className="w-screen">
+      <div className="w-screen max-h-screen overflow-y-scroll">
         <Header />
-        <main>{children}</main>
+        <main className="mt-(-500px)">{children}</main>
       </div>
     </div>
   );

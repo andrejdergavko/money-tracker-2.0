@@ -7,7 +7,6 @@ import { PAGE_NAMES_BY_ROUTE } from '../../constants';
 const Header: FC = () => {
   const router: NextRouter = useRouter();
 
-  console.log(router);
   return (
     <nav className="w-full p-4 pb-540px bg-slate-700">
       <div className="px-10 flex justify-between items-center">

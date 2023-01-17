@@ -25,8 +25,6 @@ const MENU_ITEMS = [
 const Sidebar: FC = () => {
   const router = useRouter();
 
-  console.log(router);
-
   return (
     <aside className="w-80 px-6 py-4 shadow-xl">
       <div className="pt-3 pb-1">
