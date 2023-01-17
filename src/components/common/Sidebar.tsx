@@ -2,30 +2,34 @@ import type { FC } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
+import { Routes } from '../../constants';
+
 const MENU_ITEMS = [
   {
     label: 'Transactions',
     icon: 'fa-solid fa-table',
-    href: '/',
+    href: Routes.transactions,
   },
   {
     label: 'Statistics',
     icon: 'fa-solid fa-chart-pie',
-    href: '/',
+    href: Routes.statistics,
   },
   {
     label: 'Import',
     icon: 'fa-solid fa-file-import',
-    href: '/',
+    href: Routes.import,
   },
 ];
 
 const Sidebar: FC = () => {
   const router = useRouter();
 
+  console.log(router);
+
   return (
     <aside className="w-80 px-6 py-4 shadow-xl">
-      <div className="pt-4 pb-2">
+      <div className="pt-3 pb-1">
         <Link href="/" className="font-bold uppercase">
           Money tracker
         </Link>
@@ -39,16 +43,14 @@ const Sidebar: FC = () => {
             <Link
               href={item.href}
               className={`py-3 flex uppercase font-bold text-xs hover:text-slate-500 ${
-                router.pathname.indexOf('/ss') !== -1
+                router.pathname === item.href
                   ? 'text-sky-500 hover:text-sky-600'
                   : ''
               }`}
             >
               <i
                 className={`${item.icon} mr-3 text-base ${
-                  router.pathname.indexOf('/ss') !== -1
-                    ? 'text-sky-500'
-                    : 'opacity-40'
+                  router.pathname === item.href ? 'text-sky-500' : 'opacity-40'
                 }`}
               />
               {item.label}

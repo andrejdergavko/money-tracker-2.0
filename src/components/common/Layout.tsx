@@ -13,8 +13,8 @@ const Layout: FC<Props> = ({ children }) => {
       <Sidebar />
       <div className="w-screen">
         <Header />
+        <main>{children}</main>
       </div>
-      <main>{children}</main>
     </div>
   );
 };
