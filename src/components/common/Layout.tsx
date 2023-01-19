@@ -11,9 +11,11 @@ const Layout: FC<Props> = ({ children }) => {
   return (
     <div className="flex w-screen h-screen">
       <Sidebar />
-      <div className="w-screen max-h-screen overflow-y-scroll">
+      <div className="w-screen max-h-screen overflow-y-scroll bg-slate-100">
         <Header />
-        <main className="mt-(-500px)">{children}</main>
+        <main className="" style={{ marginTop: '-480px' }}>
+          {children}
+        </main>
       </div>
     </div>
   );

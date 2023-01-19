@@ -1,48 +1,77 @@
 import React, { FC, useMemo } from 'react';
 import MaterialReactTable, { MRT_ColumnDef } from 'material-react-table';
 
+import type { TransactionT, CategoryT } from '../../types/transaction-types';
 import { mockedData as data } from './makeData';
-
-export type Person = {
-  name: {
-    firstName: string;
-    lastName: string;
-  };
-  address: string;
-  city: string;
-  state: string;
-};
 
 const Example: FC = () => {
   //should be memoized or stable
-  const columns = useMemo<MRT_ColumnDef<Person>[]>(
+  const columns = useMemo<MRT_ColumnDef<TransactionT>[]>(
     () => [
       {
-        accessorKey: 'name.firstName', //access nested data with dot notation
-        header: 'First Name',
+        accessorKey: 'date',
+        header: 'Date',
+        // minSize: 100, //min size enforced during resizing
+        maxSize: 100,
       },
       {
-        accessorKey: 'name.lastName',
-        header: 'Last Name',
+        accessorKey: 'description',
+        header: 'Description',
+        maxSize: 100,
       },
       {
-        accessorKey: 'address', //normal accessorKey
-        header: 'Address',
+        accessorKey: 'category.label',
+        header: 'Category',
+        maxSize: 100,
       },
       {
-        accessorKey: 'city',
-        header: 'City',
+        accessorKey: 'bank',
+        header: 'Bank',
+        maxSize: 100,
       },
       {
-        accessorKey: 'state',
-        header: 'State',
+        accessorKey: 'currency',
+        header: 'Currency',
+        maxSize: 100,
+      },
+      {
+        accessorKey: 'amount',
+        header: 'Amount',
+        filterVariant: 'range',
+        filterFn: 'betweenInclusive',
+        maxSize: 100,
+      },
+      {
+        accessorKey: 'amountInUsd',
+        header: 'Amount In Usd',
+        filterVariant: 'range',
+        filterFn: 'betweenInclusive',
+        maxSize: 100,
       },
     ],
     []
   );
 
   return (
-    <MaterialReactTable columns={columns} data={data} enableRowSelection />
+    <MaterialReactTable
+      columns={columns}
+      data={data}
+      enableRowActions
+      renderRowActionMenuItems={(row, index) => []}
+      enableRowSelection
+      enableDensityToggle={false}
+      initialState={{
+        density: 'comfortable',
+        // showGlobalFilter: true,
+      }}
+      //   positionGlobalFilter="left"
+      //   muiSearchTextFieldProps={{
+      //     // placeholder: `Search ${data.length} rows`,
+      //     sx: { minWidth: '300px', paddingTop: '5px' },
+      //   }}
+      //   enableBottomToolbar={false}
+      enablePagination={false}
+    />
   );
 };
 
