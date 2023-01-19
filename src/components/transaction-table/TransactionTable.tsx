@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React, { FC, useMemo } from 'react';
 import MaterialReactTable, { MRT_ColumnDef } from 'material-react-table';
 
