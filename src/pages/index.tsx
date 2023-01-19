@@ -1,26 +1,13 @@
-import TransactionTable from '../components/transaction-table';
 import useSWRMutation from 'swr/mutation';
-import swr from 'swr';
+import useTransactions from '@hooks/useTransactions';
+import useDeleteTransaction from '@hooks/useDeleteTransaction';
+import useAddTransaction from '@hooks/useAddTransaction';
+// import TransactionTable from '../components/transaction-table';
 
 export default function Transactions() {
-  const { trigger: addTransaction } = useSWRMutation(
-    '/api/transaction',
-    (url, { arg }) =>
-      fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(arg),
-      })
-  );
-
-  const { trigger: deleteTransaction } = useSWRMutation(
-    '/api/transaction',
-    (url, { arg }) => fetch(`${url}?transactionId=${arg}`, { method: 'DELETE' })
-  );
-
-  const { data } = swr('/api/transactions', (url) =>
-    fetch(url).then((res) => res.json())
-  );
+  const { transactions, isLoading } = useTransactions();
+  const { deleteTransaction, isDeleting } = useDeleteTransaction();
+  const { addTransaction, isAdding } = useAddTransaction();
 
   const handleAddNew = () => {
     addTransaction({
@@ -34,17 +21,15 @@ export default function Transactions() {
     });
   };
 
+  const handledDeleteTransaction = () => {
+    deleteTransaction(180);
+  };
+
   return (
     <div className="mx-14 rounded-lg overflow-hidden">
       <button onClick={handleAddNew}>Add new transaction</button>
-      <button
-        onClick={() => {
-          deleteTransaction(167);
-        }}
-      >
-        Delete transaction
-      </button>
-      <div>{String(data)}</div>
+      <button onClick={handledDeleteTransaction}>Delete transaction</button>
+      <div>{String(transactions)}</div>
       {/* <TransactionTable /> */}
     </div>
   );
