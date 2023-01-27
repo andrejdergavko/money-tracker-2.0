@@ -4,26 +4,15 @@ import FormControl from '@mui/material/FormControl';
 import { useFormik } from 'formik';
 import Divider from '@mui/material/Divider';
 
-import fs from 'fs';
-
 import { Select, MenuItem } from '@components/ui-kit/Select';
 import { Input } from '@components/ui-kit/Input';
 import { Button } from '@components/ui-kit/Button';
 import { mockedData } from '@components/preview-table/mock-data';
 import { parseCSV } from '@lib/utils/csv-parsing';
+import { BANKS, CURRENCIES } from '@lib/constants';
 
 import PreviewTable from '../../components/preview-table';
 import { initialValues, validationSchema } from './config';
-
-const BANK_OPTIONS = [
-  { id: '1', name: 'Prior bank' },
-  { id: '2', name: 'PKO' },
-];
-
-const CURRENCY_OPTIONS = [
-  { id: '1', code: 'BYR' },
-  { id: '2', code: 'PLN' },
-];
 
 const ImportForm = () => {
   const { handleSubmit, values, setFieldValue, handleChange } = useFormik({
@@ -37,7 +26,9 @@ const ImportForm = () => {
   console.log(values);
 
   const handleParseClick = () => {
-    parseCSV(values.bank, values.currency, values.exchangeRate, values.file);
+    if (values.bank && values.exchangeRate && values.file) {
+      console.log(parseCSV(values.bank, values.exchangeRate, values.file));
+    }
   };
 
   return (
@@ -66,9 +57,9 @@ const ImportForm = () => {
                 value={values.bank}
                 onChange={handleChange}
               >
-                {BANK_OPTIONS.map(({ id, name }) => (
+                {BANKS.map(({ id, label }) => (
                   <MenuItem key={id} value={id}>
-                    {name}
+                    {label}
                   </MenuItem>
                 ))}
               </Select>
@@ -88,7 +79,7 @@ const ImportForm = () => {
                 value={values.currency}
                 onChange={handleChange}
               >
-                {CURRENCY_OPTIONS.map(({ id, code }) => (
+                {CURRENCIES.map(({ id, code }) => (
                   <MenuItem key={id} value={id}>
                     {code}
                   </MenuItem>

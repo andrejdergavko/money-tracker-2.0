@@ -1,3 +1,5 @@
+import type { BankT, CurrencyT } from '../types/entities';
+
 export enum Pages {
   transactions = 'transactions',
   statistics = 'statistics',
@@ -22,12 +24,26 @@ export const PAGE_NAMES_BY_ROUTE: { [key: string]: string } = {
   [Routes.import]: PAGE_NAMES[Pages.import],
 };
 
-export const BANK_OPTIONS = [
-  { id: '1', name: 'Prior bank' },
-  { id: '2', name: 'PKO' },
+export const BANKS: BankT[] = [
+  {
+    id: 'priorbanc',
+    label: 'Prior bank',
+  },
+  {
+    id: 'ipko',
+    label: 'iPKO',
+  },
 ];
 
-export const CURRENCY_OPTIONS = [
-  { id: '1', code: 'BYR' },
-  { id: '2', code: 'PLN' },
+export const CURRENCIES: CurrencyT[] = [
+  {
+    id: 'BYN',
+    label: 'Belarusian ruble',
+    code: 'BYN',
+  },
+  {
+    id: 'PLN',
+    label: 'Polish zloty',
+    code: 'PLN',
+  },
 ];

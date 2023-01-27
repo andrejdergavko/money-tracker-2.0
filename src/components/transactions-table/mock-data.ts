@@ -1,4 +1,4 @@
-import { TransactionT } from '../../types/transaction-types';
+import { TransactionT } from '../../types/entities';
 
 export const mockedData: TransactionT[] = [
   {

@@ -1,3 +1,14 @@
+export type BankT = {
+  id: string;
+  label: string;
+};
+
+export type CurrencyT = {
+  id: string;
+  label: string;
+  code: string;
+};
+
 export type CategoryT = {
   id: string;
   label: string;
