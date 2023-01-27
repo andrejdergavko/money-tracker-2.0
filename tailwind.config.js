@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx}',
@@ -7,10 +8,13 @@ module.exports = {
   theme: {
     extend: {
       spacing: {
-        '540px': '540px',
-        '(-500px)': '-500px',
+        '370px': '370px',
+        '(-310px)': '-310px',
       },
     },
+  },
+  corePlugins: {
+    preflight: false,
   },
   plugins: [],
 };

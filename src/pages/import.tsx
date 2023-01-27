@@ -1,7 +1,8 @@
 import type { FC } from 'react';
+import ImportForm from '@components/import-form';
 
 const Import: FC = () => {
-  return <div>Import</div>;
+  return <ImportForm />;
 };
 
 export default Import;

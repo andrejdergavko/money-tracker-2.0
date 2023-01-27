@@ -17,14 +17,16 @@
     "incremental": true,
     "paths": {
       "@lib/*": ["src/lib/*"],
-      "@hooks/*": ["src/lib/hooks/*"]
+      "@hooks/*": ["src/lib/hooks/*"],
+      "@components/*": ["src/components/*"],
+      "@ui-kit/*": ["src/components/ui-kit/*"]
     }
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "src/lib/supabaseClient.js"
+    "src/lib/supabase-client.js"
   ],
   "exclude": ["node_modules"]
 }

@@ -3,9 +3,9 @@ import React, { FC, useMemo } from 'react';
 import MaterialReactTable, { MRT_ColumnDef } from 'material-react-table';
 
 import type { TransactionT, CategoryT } from '../../types/transaction-types';
-import { mockedData as data } from './makeData';
+import { mockedData as data } from './mock-data';
 
-const Example: FC = () => {
+const TransactionsTable: FC = () => {
   //should be memoized or stable
   const columns = useMemo<MRT_ColumnDef<TransactionT>[]>(
     () => [
@@ -76,4 +76,4 @@ const Example: FC = () => {
   );
 };
 
-export default Example;
+export default TransactionsTable;

@@ -1,8 +1,9 @@
 import type { FC } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import Divider from '@mui/material/Divider';
 
-import { Routes } from '../../constants';
+import { Routes } from '../../lib/constants';
 
 const MENU_ITEMS = [
   {
@@ -33,14 +34,14 @@ const Sidebar: FC = () => {
         </Link>
       </div>
 
-      <hr className="my-4 mt-6" />
+      <Divider className="my-4 mt-6" />
 
-      <ul>
+      <ul className="list-none">
         {MENU_ITEMS.map((item) => (
           <li key={item.label} className="my-3">
             <Link
               href={item.href}
-              className={`py-3 flex uppercase font-bold text-xs hover:text-slate-500 ${
+              className={`py-3 flex items-center uppercase font-bold text-xs hover:text-slate-500 ${
                 router.pathname === item.href
                   ? 'text-sky-500 hover:text-sky-600'
                   : ''
@@ -57,7 +58,7 @@ const Sidebar: FC = () => {
         ))}
       </ul>
 
-      <hr className="my-4 mt-6" />
+      <Divider className="my-4 mt-6" />
     </aside>
   );
 };
