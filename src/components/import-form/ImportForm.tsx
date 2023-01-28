@@ -4,9 +4,9 @@ import FormControl from '@mui/material/FormControl';
 import { useFormik } from 'formik';
 import Divider from '@mui/material/Divider';
 
-import { Select, MenuItem } from '@components/ui-kit/Select';
-import { Input } from '@components/ui-kit/Input';
-import { Button } from '@components/ui-kit/Button';
+import { Select, MenuItem } from '@components/ui/Select';
+import { Input } from '@components/ui/Input';
+import { Button } from '@components/ui/Button';
 import { mockedData } from '@components/preview-table/mock-data';
 import { parseCSV } from '@lib/utils/csv-parsing';
 import { BANKS, CURRENCIES } from '@lib/constants';

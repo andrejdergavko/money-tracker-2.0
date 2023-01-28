@@ -1,7 +1,7 @@
 import { FC, memo } from 'react';
 import MaterialReactTable, { MRT_ColumnDef } from 'material-react-table';
 
-import { Button } from '@components/ui-kit/Button';
+import { Button } from '@components/ui/Button';
 
 import type { TransactionT } from '../../types/entities';
 
