@@ -8,7 +8,7 @@ import { Select, MenuItem } from '@components/ui/Select';
 import { Input } from '@components/ui/Input';
 import { Button } from '@components/ui/Button';
 import { mockedData } from '@components/preview-table/mock-data';
-import { parseCSV } from '@lib/utils/csv-parsing';
+import { parseCSV } from 'src/utils/csv-parsing';
 import { BANKS, CURRENCIES } from '@lib/constants';
 
 import PreviewTable from '../../components/preview-table';
@@ -27,7 +27,7 @@ const ImportForm = () => {
 
   const handleParseClick = () => {
     if (values.bank && values.exchangeRate && values.file) {
-      console.log(parseCSV(values.bank, values.exchangeRate, values.file));
+      // console.log(parseCSV(values.bank, values.exchangeRate, values.file));
     }
   };
 
