@@ -2,7 +2,7 @@ import useSWRMutation from 'swr/mutation';
 import useTransactions from '@hooks/useTransactions';
 import useDeleteTransaction from '@hooks/useDeleteTransaction';
 import useAddTransaction from '@hooks/useAddTransaction';
-import TransactionTable from '../components/transactions-table';
+import TransactionTable from '../components/tables/transactions-table';
 
 export default function Transactions() {
   // const { transactions, isLoading } = useTransactions();

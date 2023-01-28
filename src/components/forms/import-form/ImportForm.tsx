@@ -7,11 +7,11 @@ import Divider from '@mui/material/Divider';
 import { Select, MenuItem } from '@components/ui/Select';
 import { Input } from '@components/ui/Input';
 import { Button } from '@components/ui/Button';
-import { mockedData } from '@components/preview-table/mock-data';
+import { mockedData } from '@components/tables/preview-table/mock-data';
 import { parseCSV } from 'src/utils/csv-parsing';
 import { BANKS, CURRENCIES } from '@lib/constants';
 
-import PreviewTable from '../../components/preview-table';
+import PreviewTable from '../../tables/preview-table';
 import { initialValues, validationSchema } from './config';
 
 const ImportForm = () => {

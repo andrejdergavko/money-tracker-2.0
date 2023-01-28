@@ -2,7 +2,7 @@
 import React, { FC, useMemo } from 'react';
 import MaterialReactTable, { MRT_ColumnDef } from 'material-react-table';
 
-import type { TransactionT, CategoryT } from '../../types/entities';
+import type { TransactionT, CategoryT } from '../../../types/entities';
 import { mockedData as data } from './mock-data';
 
 const TransactionsTable: FC = () => {

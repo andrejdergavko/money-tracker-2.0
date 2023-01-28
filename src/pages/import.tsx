@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import ImportForm from '@components/import-form';
+import ImportForm from '@components/forms/import-form';
 
 const Import: FC = () => {
   return <ImportForm />;
