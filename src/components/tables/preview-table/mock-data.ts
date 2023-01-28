@@ -3,7 +3,7 @@ import { TransactionT } from '../../../types/entities';
 export const mockedData: TransactionT[] = [
   {
     id: '1',
-    date: 123456789,
+    date: '2020-22-22',
     currency: 'BYR',
     description: 'Patrol station',
     amount: 100,

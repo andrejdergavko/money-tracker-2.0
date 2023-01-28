@@ -24,13 +24,18 @@ export const PAGE_NAMES_BY_ROUTE: { [key: string]: string } = {
   [Routes.import]: PAGE_NAMES[Pages.import],
 };
 
-export const BANKS: BankT[] = [
+export enum Banks {
+  ipko = 'ipko',
+  prior = 'prior',
+}
+
+export const BANK_OPTIONS: BankT[] = [
   {
-    id: 'priorbanc',
+    id: Banks.prior,
     label: 'Prior bank',
   },
   {
-    id: 'ipko',
+    id: Banks.ipko,
     label: 'iPKO',
   },
 ];

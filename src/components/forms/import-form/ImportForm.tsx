@@ -9,7 +9,7 @@ import { Input } from '@components/ui/Input';
 import { Button } from '@components/ui/Button';
 import { mockedData } from '@components/tables/preview-table/mock-data';
 import { parseCSV } from 'src/utils/csv-parsing';
-import { BANKS, CURRENCIES } from '@lib/constants';
+import { BANK_OPTIONS, CURRENCIES } from '@lib/constants';
 
 import PreviewTable from '../../tables/preview-table';
 import { initialValues, validationSchema } from './config';
@@ -25,10 +25,9 @@ const ImportForm = () => {
 
   console.log(values);
 
-  const handleParseClick = () => {
-    if (values.bank && values.exchangeRate && values.file) {
-      // console.log(parseCSV(values.bank, values.exchangeRate, values.file));
-    }
+  const handleParseClick = async () => {
+    const newTransactions = await parseCSV('ipko', 2.5, values.file);
+    setFieldValue('newTransactions', newTransactions);
   };
 
   return (
@@ -57,7 +56,7 @@ const ImportForm = () => {
                 value={values.bank}
                 onChange={handleChange}
               >
-                {BANKS.map(({ id, label }) => (
+                {BANK_OPTIONS.map(({ id, label }) => (
                   <MenuItem key={id} value={id}>
                     {label}
                   </MenuItem>
@@ -140,7 +139,7 @@ const ImportForm = () => {
           </h6>
 
           <div className="rounded overflow-hidden ">
-            <PreviewTable data={mockedData} />
+            <PreviewTable data={values.newTransactions} />
           </div>
 
           <div className="flex justify-end mt-10">

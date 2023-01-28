@@ -4,6 +4,9 @@ import MaterialReactTable, { MRT_ColumnDef } from 'material-react-table';
 import { Button } from '@components/ui/Button';
 
 import type { TransactionT } from '../../../types/entities';
+import DescriptionCell from '../cell-renderers/DescriptionCell';
+import AmountCell from '../cell-renderers/AmountCell';
+import AmountInUsdCell from '../cell-renderers/AmountInUsdCell';
 
 type PreviewTablePropsT = {
   data: TransactionT[];
@@ -13,18 +16,19 @@ const columns: MRT_ColumnDef<TransactionT>[] = [
   {
     accessorKey: 'date',
     header: 'Date',
+    maxSize: 110,
   },
   {
     accessorKey: 'description',
     header: 'Description',
+    Cell: ({ cell }) => (
+      <DescriptionCell description={cell.getValue<string>()} />
+    ),
   },
   {
     accessorKey: 'bank',
     header: 'Bank',
-  },
-  {
-    accessorKey: 'currency',
-    header: 'Currency',
+    maxSize: 110,
   },
   {
     accessorKey: 'amount',
@@ -37,6 +41,13 @@ const columns: MRT_ColumnDef<TransactionT>[] = [
     muiTableBodyCellProps: {
       align: 'right',
     },
+    maxSize: 110,
+    Cell: ({ cell }) => (
+      <AmountCell
+        amount={cell.getValue<number>()}
+        currency={cell?.row?.original?.currency}
+      />
+    ),
   },
   {
     accessorKey: 'amountInUsd',
@@ -49,6 +60,8 @@ const columns: MRT_ColumnDef<TransactionT>[] = [
     muiTableBodyCellProps: {
       align: 'right',
     },
+    maxSize: 110,
+    Cell: ({ cell }) => <AmountInUsdCell amount={cell.getValue<number>()} />,
   },
 ];
 
