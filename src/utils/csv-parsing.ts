@@ -45,7 +45,7 @@ const convertRowToTransaction = (
     currency: row[4],
     description: `${row[7]} ${row[8]} ${row[9]}`,
     amount: Number(row[3]),
-    amountInUsd: Number(row[3]) / exchangeRate,
+    amountInUsd: Number((Number(row[3]) / exchangeRate).toFixed(2)),
     bank: 'ipko',
     originalCsvRow: row,
   };
@@ -56,23 +56,21 @@ export const parseCSV = async (
   exchangeRate: number,
   file: File
 ) => {
-  if (!file) return;
-
   const text = await file.text();
   const rows = parse<RowT>(text, {}).data;
 
   switch (bank) {
     case 'ipko': {
-      const newTransactions = rows.reduce<TransactionT[]>((acc, row) => {
+      const transactions = rows.reduce<TransactionT[]>((acc, row) => {
         if (isIpkoRowValid(row)) {
-          const newTransaction = convertRowToTransaction(row, exchangeRate);
-          acc.push(newTransaction);
+          const transaction = convertRowToTransaction(row, exchangeRate);
+          acc.push(transaction);
         }
 
         return acc;
       }, []);
 
-      return newTransactions;
+      return transactions;
     }
     case 'prior': {
       return;

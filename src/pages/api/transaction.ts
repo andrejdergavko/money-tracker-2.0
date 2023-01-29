@@ -18,8 +18,6 @@ export default async function transaction(
         categoryId,
       } = req.body;
 
-      console.log(req.body);
-
       await supabase.from('transactions').insert([
         {
           date,

@@ -5,7 +5,7 @@ interface AmountInUsdCellPropsT {
 }
 
 const AmountInUsdCell: FC<AmountInUsdCellPropsT> = ({ amount }) => {
-  return <div>{`${amount} USD`}</div>;
+  return <div>{`${amount?.toFixed(2)} USD`}</div>;
 };
 
 export default AmountInUsdCell;

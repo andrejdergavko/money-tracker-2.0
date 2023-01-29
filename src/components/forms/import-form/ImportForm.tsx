@@ -1,21 +1,28 @@
 import React from 'react';
 import { ChangeEvent } from 'react';
-import FormControl from '@mui/material/FormControl';
 import { useFormik } from 'formik';
 import Divider from '@mui/material/Divider';
 
 import { Select, MenuItem } from '@components/ui/Select';
 import { Input } from '@components/ui/Input';
 import { Button } from '@components/ui/Button';
-import { mockedData } from '@components/tables/preview-table/mock-data';
-import { parseCSV } from 'src/utils/csv-parsing';
+import { FormControl } from '@components/ui/FormControl';
 import { BANK_OPTIONS, CURRENCIES } from '@lib/constants';
 
+import { parseCSV } from 'src/utils/csv-parsing';
 import PreviewTable from '../../tables/preview-table';
-import { initialValues, validationSchema } from './config';
+import { initialValues, validationSchema, type Values } from './config';
 
 const ImportForm = () => {
-  const { handleSubmit, values, setFieldValue, handleChange } = useFormik({
+  const {
+    handleSubmit,
+    values,
+    setFieldValue,
+    handleChange,
+    validateForm,
+    errors,
+  } = useFormik<Values>({
+    validateOnChange: false,
     initialValues,
     validationSchema,
     onSubmit: (values) => {
@@ -23,11 +30,28 @@ const ImportForm = () => {
     },
   });
 
-  console.log(values);
+  console.log('values', values);
 
   const handleParseClick = async () => {
-    const newTransactions = await parseCSV('ipko', 2.5, values.file);
-    setFieldValue('newTransactions', newTransactions);
+    await validateForm();
+
+    if (values.bank && values.exchangeRate && values.file) {
+      const transactions = await parseCSV(
+        values.bank,
+        values.exchangeRate,
+        values.file
+      );
+
+      setFieldValue('transactions', transactions);
+    }
+  };
+
+  const handleRowsDelete = (idsToDelete: string[]) => {
+    const newTransactions = [...values.transactions].filter(
+      (item) => !idsToDelete.includes(item.id)
+    );
+
+    setFieldValue('transactions', newTransactions);
   };
 
   return (
@@ -42,7 +66,12 @@ const ImportForm = () => {
           </h6>
 
           <div className="mt-2 flex flex-wrap">
-            <FormControl className="min-w-[200px] w-3/12 px-4 relative mb-3">
+            <FormControl
+              className="min-w-[200px] w-3/12 px-4 relative mb-3"
+              error={Boolean(errors.bank)}
+              helperText={errors.bank}
+              helperTextId="bank-error-text"
+            >
               <label
                 className="block uppercase text-slate-600 text-xs font-bold mb-2"
                 htmlFor="bank-select-label"
@@ -51,6 +80,7 @@ const ImportForm = () => {
               </label>
               <Select
                 labelId="bank-select-label"
+                aria-describedby="bank-error-text"
                 id="bank-select"
                 name="bank"
                 value={values.bank}
@@ -64,7 +94,12 @@ const ImportForm = () => {
               </Select>
             </FormControl>
 
-            <FormControl className="min-w-[150px] w-2/12 px-4 relative  mb-3">
+            <FormControl
+              className="min-w-[150px] w-2/12 px-4 relative  mb-3"
+              error={Boolean(errors.currency)}
+              helperText={errors.currency}
+              helperTextId="currency-error-text"
+            >
               <label
                 className="block uppercase text-slate-600 text-xs font-bold mb-2"
                 htmlFor="currency-select-label"
@@ -73,6 +108,7 @@ const ImportForm = () => {
               </label>
               <Select
                 labelId="currency-select-label"
+                aria-describedby="currency-error-text"
                 id="currency-select"
                 name="currency"
                 value={values.currency}
@@ -86,7 +122,12 @@ const ImportForm = () => {
               </Select>
             </FormControl>
 
-            <FormControl className="w-36 px-4 relative mb-3">
+            <FormControl
+              className="w-36 px-4 relative mb-3"
+              error={Boolean(errors.exchangeRate)}
+              helperText={errors.exchangeRate}
+              helperTextId="exchange-rate-error-text"
+            >
               <label
                 className="block uppercase text-slate-600 text-xs font-bold mb-2"
                 htmlFor="exchange-rate-input"
@@ -94,14 +135,21 @@ const ImportForm = () => {
                 Exchange rate
               </label>
               <Input
+                aria-describedby="exchange-rate-error-text"
                 id="exchange-rate-input"
                 name="exchangeRate"
                 value={values.exchangeRate}
                 onChange={handleChange}
+                type="number"
               />
             </FormControl>
 
-            <FormControl className="flex-1 min-w-[240px] px-4 relative mb-3">
+            <FormControl
+              className="flex-1 min-w-[240px] px-4 relative mb-3"
+              error={Boolean(errors.file)}
+              helperText={errors.file}
+              helperTextId="file-error-text"
+            >
               <label
                 className="block uppercase text-slate-600 text-xs font-bold mb-2"
                 htmlFor="exchange-rate-input"
@@ -109,6 +157,7 @@ const ImportForm = () => {
                 Upload CSV File
               </label>
               <input
+                aria-describedby="file-error-text"
                 className="block w-full file:h-11 file:py-3 file:px-4 file:mr-3 file:border-none file:bg-slate-800
                   file:text-slate-100 file:cursor-pointer file:font-bolt text-sm shadow rounded cursor-pointer bg-gray-50 focus:outline-none"
                 id="file-upload-input"
@@ -139,11 +188,19 @@ const ImportForm = () => {
           </h6>
 
           <div className="rounded overflow-hidden ">
-            <PreviewTable data={values.newTransactions} />
+            <PreviewTable
+              data={values.transactions}
+              onRowsDelete={handleRowsDelete}
+            />
           </div>
 
           <div className="flex justify-end mt-10">
-            <Button variant="contained" size="large">
+            <Button
+              disabled={values.transactions.length === 0}
+              variant="contained"
+              size="large"
+              type="submit"
+            >
               Add transactions
             </Button>
           </div>

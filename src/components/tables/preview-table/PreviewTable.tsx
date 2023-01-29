@@ -10,6 +10,7 @@ import AmountInUsdCell from '../cell-renderers/AmountInUsdCell';
 
 type PreviewTablePropsT = {
   data: TransactionT[];
+  onRowsDelete: (RowIds: string[]) => void;
 };
 
 const columns: MRT_ColumnDef<TransactionT>[] = [
@@ -65,7 +66,7 @@ const columns: MRT_ColumnDef<TransactionT>[] = [
   },
 ];
 
-const PreviewTable: FC<PreviewTablePropsT> = ({ data }) => {
+const PreviewTable: FC<PreviewTablePropsT> = ({ data, onRowsDelete }) => {
   return (
     <MaterialReactTable
       columns={columns}
@@ -88,7 +89,13 @@ const PreviewTable: FC<PreviewTablePropsT> = ({ data }) => {
             !table.getIsSomeRowsSelected() && !table.getIsAllRowsSelected()
           }
           onClick={() => {
-            alert('Delete Selected Accounts');
+            const idsToDelete = table
+              .getSelectedRowModel()
+              .rows.map((row) => row.original?.id);
+
+            onRowsDelete(idsToDelete);
+
+            table.resetRowSelection();
           }}
           variant="contained"
           size="small"
@@ -109,7 +116,12 @@ const PreviewTable: FC<PreviewTablePropsT> = ({ data }) => {
         },
       }}
       renderRowActions={({ table, row }) => (
-        <Button className="w-1 p-2 mx-3 min-w-fit">
+        <Button
+          className="w-1 p-2 mx-3 min-w-fit"
+          onClick={() => {
+            onRowsDelete([row.original?.id]);
+          }}
+        >
           <i className="fa-solid fa-trash text-xs" />
         </Button>
       )}
