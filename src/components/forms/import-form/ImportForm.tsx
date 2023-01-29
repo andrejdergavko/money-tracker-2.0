@@ -62,12 +62,12 @@ const ImportForm = () => {
         </div>
         <div className="px-10 pb-10">
           <h6 className="text-slate-400 text-sm mt-3 mb-6 font-bold uppercase">
-            Settings
+            Parsing settings
           </h6>
 
           <div className="mt-2 flex flex-wrap">
             <FormControl
-              className="min-w-[200px] w-3/12 px-4 relative mb-3"
+              className="min-w-[200px] w-2/12 px-4 relative mb-3"
               error={Boolean(errors.bank)}
               helperText={errors.bank}
               helperTextId="bank-error-text"
