@@ -8,12 +8,15 @@ import { Input } from '@components/ui/Input';
 import { Button } from '@components/ui/Button';
 import { FormControl } from '@components/ui/FormControl';
 import { BANK_OPTIONS, CURRENCIES } from '@lib/constants';
+import useAddTransactions from '@lib/hooks/useAddTransactions';
 
 import { parseCSV } from 'src/utils/csv-parsing';
 import PreviewTable from '../../tables/preview-table';
 import { initialValues, validationSchema, type Values } from './config';
 
 const ImportForm = () => {
+  const { addTransactions } = useAddTransactions();
+
   const {
     handleSubmit,
     values,
@@ -26,11 +29,9 @@ const ImportForm = () => {
     initialValues,
     validationSchema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      addTransactions(values.transactions);
     },
   });
-
-  console.log('values', values);
 
   const handleParseClick = async () => {
     await validateForm();

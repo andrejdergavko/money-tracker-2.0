@@ -2,12 +2,14 @@ import useSWRMutation from 'swr/mutation';
 import useTransactions from '@hooks/useTransactions';
 import useDeleteTransaction from '@hooks/useDeleteTransaction';
 import useAddTransaction from '@hooks/useAddTransaction';
+// import useAddTransactions from '@hooks/useAddTransactions';
 import TransactionTable from '../components/tables/transactions-table';
 
 export default function Transactions() {
   // const { transactions, isLoading } = useTransactions();
   // const { deleteTransaction, isDeleting } = useDeleteTransaction();
   // const { addTransaction, isAdding } = useAddTransaction();
+  // const { addTransactions } = useAddTransactions();
 
   // const handleAddNew = () => {
   //   addTransaction({
@@ -27,6 +29,13 @@ export default function Transactions() {
 
   return (
     <div className="mx-14 rounded-lg overflow-hidden">
+      {/* <button
+        onClick={() => {
+          addTransactions();
+        }}
+      >
+        add transactions
+      </button> */}
       {/* <button onClick={handleAddNew}>Add new transaction</button>
       <button onClick={handledDeleteTransaction}>Delete transaction</button>
       <div>{String(transactions)}</div> */}
