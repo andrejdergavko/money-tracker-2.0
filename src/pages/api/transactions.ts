@@ -51,7 +51,7 @@ export default async function transactions(
           .insert<InsertTransactionT>(newTransactions)
           .throwOnError();
 
-        return res.status(200).end();
+        return res.status(200).send({ success: true });
       } catch (error) {
         console.error('create new transactions error', error);
         return res.status(500).json(error);

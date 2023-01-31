@@ -16,7 +16,7 @@ const useAddTransactions = () => {
         throw new Error(error?.message);
       }
 
-      return res;
+      return res.json();
     }
   );
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import { ChangeEvent } from 'react';
 import { useFormik } from 'formik';
 import Divider from '@mui/material/Divider';
@@ -16,6 +17,7 @@ import { initialValues, validationSchema, type Values } from './config';
 
 const ImportForm = () => {
   const { addTransactions } = useAddTransactions();
+  const { push } = useRouter();
 
   const {
     handleSubmit,
@@ -28,8 +30,9 @@ const ImportForm = () => {
     validateOnChange: false,
     initialValues,
     validationSchema,
-    onSubmit: (values) => {
-      addTransactions(values.transactions);
+    onSubmit: async (values) => {
+      const result = await addTransactions(values.transactions);
+      result.success && push('/');
     },
   });
 
