@@ -16,7 +16,7 @@ const Header: FC = () => {
         <div className="relative w-12 h-12 rounded-full">
           <Image
             className="rounded-full"
-            src="/avatar.jpeg"
+            src="/no-avatar.jpg"
             fill
             alt="Avatar"
             style={{ objectFit: 'cover' }}
