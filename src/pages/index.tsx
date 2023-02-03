@@ -7,17 +7,17 @@ import SetCategoryModal from '@components/modals/SetCategoryModal';
 
 export default function Transactions() {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
-  const [selectedIds, setSelectedIds] = React.useState<number[]>([]);
+  const [selectedUuids, setSelectedUuids] = React.useState<string[]>([]);
 
   const { transactions } = useTransactions();
   const { deleteTransactions } = useDeleteTransaction();
 
-  const handledDeleteTransaction = (ids: number[]) => {
-    deleteTransactions(ids);
+  const handledDeleteTransaction = (uuids: string[]) => {
+    deleteTransactions(uuids);
   };
 
-  const handleSetCategory = (ids: number[]) => {
-    setSelectedIds(ids);
+  const handleSetCategory = (uuids: string[]) => {
+    setSelectedUuids(uuids);
     setIsModalOpen(true);
   };
 
@@ -36,7 +36,7 @@ export default function Transactions() {
         onClose={() => {
           setIsModalOpen(false);
         }}
-        transactionIds={selectedIds}
+        transactionUuids={selectedUuids}
       />
     </div>
   );

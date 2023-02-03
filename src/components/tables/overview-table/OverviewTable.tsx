@@ -11,8 +11,8 @@ import EditableCategoryCell from '../cell-renderers/EditableCategoryCell';
 
 interface PropsT {
   data: TransactionT[];
-  onRowsDelete: (Ids: number[]) => void;
-  onSetCategory: (Ids: number[]) => void;
+  onRowsDelete: (Uuids: string[]) => void;
+  onSetCategory: (Uuids: string[]) => void;
 }
 
 const PreviewTable: FC<PropsT> = ({
@@ -44,7 +44,7 @@ const PreviewTable: FC<PropsT> = ({
             <EditableCategoryCell
               category={cell.getValue<CategoryT>()}
               onEdit={() => {
-                onSetCategory([row.original?.id]);
+                onSetCategory([row.original?.uuid]);
               }}
             />
           );
@@ -98,7 +98,7 @@ const PreviewTable: FC<PropsT> = ({
     <MaterialReactTable
       columns={columns}
       data={data}
-      getRowId={(originalRow) => String(originalRow.id)}
+      getRowId={(originalRow) => String(originalRow.uuid)}
       enableRowSelection
       enableDensityToggle={false}
       enableHiding={false}
@@ -118,11 +118,11 @@ const PreviewTable: FC<PropsT> = ({
               !table?.getIsSomeRowsSelected() && !table?.getIsAllRowsSelected()
             }
             onClick={() => {
-              const selectedIds = table
+              const selectedUuids = table
                 .getSelectedRowModel()
-                .rows.map((row) => row.original?.id);
+                .rows.map((row) => row.original?.uuid);
 
-              onRowsDelete(selectedIds);
+              onRowsDelete(selectedUuids);
 
               table.resetRowSelection();
             }}
@@ -139,11 +139,11 @@ const PreviewTable: FC<PropsT> = ({
               !table?.getIsSomeRowsSelected() && !table?.getIsAllRowsSelected()
             }
             onClick={() => {
-              const selectedIds = table
+              const selectedUuids = table
                 .getSelectedRowModel()
-                .rows.map((row) => row.original?.id);
+                .rows.map((row) => row.original?.uuid);
 
-              onSetCategory(selectedIds);
+              onSetCategory(selectedUuids);
 
               table.resetRowSelection();
             }}
@@ -169,7 +169,7 @@ const PreviewTable: FC<PropsT> = ({
         <Button
           className="w-1 p-2 mx-3 min-w-fit"
           onClick={() => {
-            onRowsDelete([row.original?.id]);
+            onRowsDelete([row.original?.uuid]);
           }}
         >
           <i className="fa-solid fa-trash text-xs" />

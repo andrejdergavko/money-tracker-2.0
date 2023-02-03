@@ -1,10 +1,10 @@
 import { parse } from 'papaparse';
 import parseDate from 'date-fns/parse';
-import isValid from 'date-fns/isValid';
+import isDateValid from 'date-fns/isValid';
 import { v4 as uuidv4 } from 'uuid';
 
 import { TransactionT } from '../types/entities';
-import { CURRENCIES, Banks } from '@lib/constants';
+import { CURRENCIES } from '@lib/constants';
 
 type RowT = string[];
 
@@ -20,7 +20,7 @@ const isIpkoRowValid = (row: string[]): boolean => {
   const isCurrencyKnown = (currency: string) =>
     CURRENCIES.some((item) => item.code === currency);
 
-  if (!isValid(parsedDate)) {
+  if (!isDateValid(parsedDate)) {
     return false;
   }
   if (!isNumeric(amount)) {
@@ -40,7 +40,7 @@ const convertRowToTransaction = (
   exchangeRate: number
 ): TransactionT => {
   return {
-    id: uuidv4(),
+    uuid: uuidv4(),
     date: row[0],
     currency: row[4],
     description: `${row[7]} ${row[8]} ${row[9]}`,

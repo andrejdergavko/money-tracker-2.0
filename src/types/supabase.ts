@@ -12,18 +12,18 @@ export interface Database {
       categories: {
         Row: {
           color: string
-          id: number
           label: string
+          uuid: string
         }
         Insert: {
           color: string
-          id?: number
           label?: string
+          uuid?: string
         }
         Update: {
           color?: string
-          id?: number
           label?: string
+          uuid?: string
         }
       }
       transactions: {
@@ -31,34 +31,34 @@ export interface Database {
           amount: number
           amount_in_usd: number | null
           bank: string | null
-          category_id: number | null
+          category_uuid: string | null
           currency: string
           date: string
           description: string | null
-          id: number
           original_csv_row: string | null
+          uuid: string
         }
         Insert: {
           amount: number
           amount_in_usd?: number | null
           bank?: string | null
-          category_id?: number | null
+          category_uuid?: string | null
           currency: string
           date: string
           description?: string | null
-          id?: number
           original_csv_row?: string | null
+          uuid?: string
         }
         Update: {
           amount?: number
           amount_in_usd?: number | null
           bank?: string | null
-          category_id?: number | null
+          category_uuid?: string | null
           currency?: string
           date?: string
           description?: string | null
-          id?: number
           original_csv_row?: string | null
+          uuid?: string
         }
       }
     }

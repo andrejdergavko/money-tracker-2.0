@@ -15,12 +15,12 @@ export type AddTransactionsArgsT = {
   amount: number;
   amountInUsd: number;
   bank: string;
-  categoryId?: number;
+  categoryUuid?: string;
   originalCsvRow: string;
 }[];
 
 export type EditTransactionsArgsT = {
-  ids: number[];
+  uuids: string[];
   fields: {
     date?: string;
     currency?: string;
@@ -28,12 +28,12 @@ export type EditTransactionsArgsT = {
     amount?: number;
     amountInUsd?: number;
     bank?: string;
-    categoryId?: number;
+    categoryUuid?: string;
     originalCsvRow?: string;
   };
 };
 
-export type DeleteTransactionsArgsT = number[];
+export type DeleteTransactionsArgsT = string[];
 
 export default async function transactions(
   req: NextApiRequest,
@@ -75,12 +75,12 @@ export default async function transactions(
     case 'PUT': {
       // update transactions
       try {
-        const { ids, fields }: EditTransactionsArgsT = req.body;
+        const { uuids, fields }: EditTransactionsArgsT = req.body;
 
         await supabase
           .from('transactions')
           .update(snakecaseKeys(fields))
-          .in('id', ids)
+          .in('uuid', uuids)
           .throwOnError();
 
         return res.status(200).send({ success: true });
@@ -92,12 +92,12 @@ export default async function transactions(
     case 'DELETE': {
       // delete transactions
       try {
-        const ids: DeleteTransactionsArgsT = req.body;
+        const uuids: DeleteTransactionsArgsT = req.body;
 
         await supabase
           .from('transactions')
           .delete()
-          .in('id', ids)
+          .in('uuid', uuids)
           .throwOnError();
         return res.status(200).send({ success: true });
       } catch (error) {

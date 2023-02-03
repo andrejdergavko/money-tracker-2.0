@@ -10,13 +10,13 @@ export type CurrencyT = {
 };
 
 export type CategoryT = {
-  id: string;
+  uuid: string;
   label: string;
   color: string;
 };
 
 export type TransactionT = {
-  id: number;
+  uuid: string;
   date: string;
   currency: string;
   description: string;

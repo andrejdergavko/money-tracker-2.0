@@ -15,11 +15,15 @@ import { Button } from '@components/ui/Button';
 interface PropsT {
   isOpen: boolean;
   onClose: () => void;
-  transactionIds: number[];
+  transactionUuids: string[];
 }
 
-const SetCategoryModal: FC<PropsT> = ({ isOpen, onClose, transactionIds }) => {
-  const [value, setValue] = React.useState<number>();
+const SetCategoryModal: FC<PropsT> = ({
+  isOpen,
+  onClose,
+  transactionUuids,
+}) => {
+  const [value, setValue] = React.useState<string>();
   const { categories = [] } = useCategories();
 
   const { editTransactions, isEditing } = useEditTransactions({
@@ -27,7 +31,7 @@ const SetCategoryModal: FC<PropsT> = ({ isOpen, onClose, transactionIds }) => {
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(Number(event.target.value));
+    setValue(event.target.value);
   };
 
   const handleClose = () => {
@@ -38,8 +42,8 @@ const SetCategoryModal: FC<PropsT> = ({ isOpen, onClose, transactionIds }) => {
   const handleSet = (event: React.FormEvent) => {
     event.preventDefault();
     editTransactions({
-      ids: transactionIds,
-      fields: { categoryId: value },
+      uuids: transactionUuids,
+      fields: { categoryUuid: value },
     });
   };
 
@@ -55,8 +59,8 @@ const SetCategoryModal: FC<PropsT> = ({ isOpen, onClose, transactionIds }) => {
             <RadioGroup name="categories" value={value} onChange={handleChange}>
               {categories.map((category) => (
                 <FormControlLabel
-                  key={category.id}
-                  value={category.id}
+                  key={category.uuid}
+                  value={category.uuid}
                   control={<Radio />}
                   label={category.label}
                 />

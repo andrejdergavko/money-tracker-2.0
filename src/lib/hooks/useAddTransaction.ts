@@ -7,7 +7,7 @@ export type addTransactionArgs = {
   amount: number;
   amountInUsd: number;
   bank: string;
-  categoryId?: number;
+  categoryUuid?: string;
 };
 
 const useAddTransaction = () => {

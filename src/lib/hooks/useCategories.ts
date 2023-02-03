@@ -1,7 +1,8 @@
 import useSwr, { SWRConfiguration } from 'swr';
+import { CategoryT } from '../../types/entities';
 
 const useCategories = (config?: SWRConfiguration) => {
-  const { data, error, isLoading } = useSwr(
+  const { data, error, isLoading } = useSwr<CategoryT[]>(
     '/api/categories',
     async (url: string) => {
       const res = await fetch(url);

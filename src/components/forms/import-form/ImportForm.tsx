@@ -31,9 +31,7 @@ const ImportForm = () => {
     initialValues,
     validationSchema,
     onSubmit: async (values) => {
-      const result = await addTransactions(
-        values.transactions.map(({ id, ...rest }) => rest)
-      );
+      const result = await addTransactions(values.transactions);
       result.success && push('/');
     },
   });
@@ -52,9 +50,9 @@ const ImportForm = () => {
     }
   };
 
-  const handleRowsDelete = (idsToDelete: number[]) => {
+  const handleRowsDelete = (uuidsToDelete: string[]) => {
     const newTransactions = [...values.transactions].filter(
-      (item) => !idsToDelete.includes(item.id)
+      (item) => !uuidsToDelete.includes(item.uuid)
     );
 
     setFieldValue('transactions', newTransactions);

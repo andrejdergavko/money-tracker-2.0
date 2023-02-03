@@ -10,7 +10,7 @@ import AmountInUsdCell from '../cell-renderers/AmountInUsdCell';
 
 type PreviewTablePropsT = {
   data: TransactionT[];
-  onRowsDelete: (rowIds: number[]) => void;
+  onRowsDelete: (rowUuids: string[]) => void;
 };
 
 const columns: MRT_ColumnDef<TransactionT>[] = [
@@ -89,11 +89,11 @@ const PreviewTable: FC<PreviewTablePropsT> = ({ data, onRowsDelete }) => {
             !table.getIsSomeRowsSelected() && !table.getIsAllRowsSelected()
           }
           onClick={() => {
-            const idsToDelete = table
+            const uuidsToDelete = table
               .getSelectedRowModel()
-              .rows.map((row) => row.original?.id);
+              .rows.map((row) => row.original?.uuid);
 
-            onRowsDelete(idsToDelete);
+            onRowsDelete(uuidsToDelete);
 
             table.resetRowSelection();
           }}
@@ -119,7 +119,7 @@ const PreviewTable: FC<PreviewTablePropsT> = ({ data, onRowsDelete }) => {
         <Button
           className="w-1 p-2 mx-3 min-w-fit"
           onClick={() => {
-            onRowsDelete([row.original?.id]);
+            onRowsDelete([row.original?.uuid]);
           }}
         >
           <i className="fa-solid fa-trash text-xs" />

@@ -6,38 +6,14 @@ export default async function transaction(
   res: NextApiResponse
 ) {
   switch (req.method) {
-    case 'POST': {
-      // create transaction
-      const {
-        date,
-        currency,
-        description,
-        amount,
-        amountInUsd,
-        bank,
-        categoryId,
-      } = req.body;
-
-      await supabase.from('transactions').insert([
-        {
-          date,
-          currency,
-          description,
-          amount,
-          amount_in_usd: amountInUsd,
-          bank,
-          category_id: categoryId,
-        },
-      ]);
-
-      res.status(200).end();
-      return;
-    }
     case 'DELETE': {
       // delete transaction
-      const { transactionId } = req.query;
+      const { transactionUuid } = req.query;
 
-      await supabase.from('transactions').delete().match({ id: transactionId });
+      await supabase
+        .from('transactions')
+        .delete()
+        .match({ uuid: transactionUuid });
 
       res.status(200).end();
       return;
