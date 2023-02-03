@@ -10,7 +10,7 @@ import AmountInUsdCell from '../cell-renderers/AmountInUsdCell';
 
 type PreviewTablePropsT = {
   data: TransactionT[];
-  onRowsDelete: (RowIds: string[]) => void;
+  onRowsDelete: (rowIds: number[]) => void;
 };
 
 const columns: MRT_ColumnDef<TransactionT>[] = [

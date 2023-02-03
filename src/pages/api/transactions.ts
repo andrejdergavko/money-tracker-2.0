@@ -1,4 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import camelcaseKeys from 'camelcase-keys';
+import snakecaseKeys from 'snakecase-keys';
+
 import { supabase } from '../../lib/supabase-client';
 import { Database } from '../../types/supabase';
 
@@ -13,42 +16,54 @@ export type AddTransactionsArgsT = {
   amountInUsd: number;
   bank: string;
   categoryId?: number;
+  originalCsvRow: string;
 }[];
+
+export type EditTransactionsArgsT = {
+  ids: number[];
+  fields: {
+    date?: string;
+    currency?: string;
+    description?: string;
+    amount?: number;
+    amountInUsd?: number;
+    bank?: string;
+    categoryId?: number;
+    originalCsvRow?: string;
+  };
+};
+
+export type DeleteTransactionsArgsT = number[];
 
 export default async function transactions(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   switch (req.method) {
+    case 'GET': {
+      // get transactions
+      try {
+        const { data: transactions } = await supabase
+          .from('transactions')
+          .select('*, category:categories (*)')
+          .throwOnError();
+
+        return res
+          .status(200)
+          .json(transactions && camelcaseKeys(transactions));
+      } catch (error) {
+        console.error('get transactions error', error);
+        return res.status(500).json(error);
+      }
+    }
     case 'POST': {
       // create new transactions
       try {
-        const body: AddTransactionsArgsT = req.body;
-        const newTransactions = body.map(
-          ({
-            date,
-            currency,
-            description,
-            amount,
-            amountInUsd,
-            bank,
-            categoryId,
-          }) => {
-            return {
-              date,
-              currency,
-              description,
-              amount,
-              amount_in_usd: amountInUsd,
-              bank,
-              category_id: categoryId,
-            };
-          }
-        );
+        const newTransactions: AddTransactionsArgsT = req.body;
 
         await supabase
           .from('transactions')
-          .insert<InsertTransactionT>(newTransactions)
+          .insert<InsertTransactionT>(snakecaseKeys(newTransactions))
           .throwOnError();
 
         return res.status(200).send({ success: true });
@@ -57,14 +72,38 @@ export default async function transactions(
         return res.status(500).json(error);
       }
     }
-    case 'GET': {
-      // get transactions
-      const { data: transactions } = await supabase
-        .from('transactions')
-        .select('*, category:categories (*)');
+    case 'PUT': {
+      // update transactions
+      try {
+        const { ids, fields }: EditTransactionsArgsT = req.body;
 
-      res.status(200).json(transactions);
-      return;
+        await supabase
+          .from('transactions')
+          .update(snakecaseKeys(fields))
+          .in('id', ids)
+          .throwOnError();
+
+        return res.status(200).send({ success: true });
+      } catch (error) {
+        console.error('update transactions error', error);
+        return res.status(500).json(error);
+      }
+    }
+    case 'DELETE': {
+      // delete transactions
+      try {
+        const ids: DeleteTransactionsArgsT = req.body;
+
+        await supabase
+          .from('transactions')
+          .delete()
+          .in('id', ids)
+          .throwOnError();
+        return res.status(200).send({ success: true });
+      } catch (error) {
+        console.error('delete transactions error', error);
+        return res.status(500).json(error);
+      }
     }
     default:
       res.status(405).end();

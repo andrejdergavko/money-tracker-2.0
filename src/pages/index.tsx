@@ -1,45 +1,43 @@
-import useSWRMutation from 'swr/mutation';
+import React from 'react';
+
 import useTransactions from '@hooks/useTransactions';
-import useDeleteTransaction from '@hooks/useDeleteTransaction';
-import useAddTransaction from '@hooks/useAddTransaction';
-// import useAddTransactions from '@hooks/useAddTransactions';
-import TransactionTable from '../components/tables/transactions-table';
+import useDeleteTransaction from '@lib/hooks/useDeleteTransactions';
+import OverviewTable from '@components/tables/overview-table';
+import SetCategoryModal from '@components/modals/SetCategoryModal';
 
 export default function Transactions() {
-  // const { transactions, isLoading } = useTransactions();
-  // const { deleteTransaction, isDeleting } = useDeleteTransaction();
-  // const { addTransaction, isAdding } = useAddTransaction();
-  // const { addTransactions } = useAddTransactions();
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [selectedIds, setSelectedIds] = React.useState<number[]>([]);
 
-  // const handleAddNew = () => {
-  //   addTransaction({
-  //     date: '2023-01-03 11:13:50+00',
-  //     currency: 'BYN',
-  //     description: '111',
-  //     amount: 10,
-  //     amountInUsd: 5,
-  //     bank: 'sdfds',
-  //     categoryId: 1,
-  //   });
-  // };
+  const { transactions } = useTransactions();
+  const { deleteTransactions } = useDeleteTransaction();
 
-  // const handledDeleteTransaction = () => {
-  //   deleteTransaction(180);
-  // };
+  const handledDeleteTransaction = (ids: number[]) => {
+    deleteTransactions(ids);
+  };
+
+  const handleSetCategory = (ids: number[]) => {
+    setSelectedIds(ids);
+    setIsModalOpen(true);
+  };
 
   return (
-    <div className="mx-14 rounded-lg overflow-hidden">
-      {/* <button
-        onClick={() => {
-          addTransactions();
+    <div className="mx-14 mb-14 rounded overflow-hidden">
+      <div className="px-8 py-6 bg-slate-200">
+        <h6 className="text-xl font-bold">Transactions table</h6>
+      </div>
+      <OverviewTable
+        data={transactions}
+        onRowsDelete={handledDeleteTransaction}
+        onSetCategory={handleSetCategory}
+      />
+      <SetCategoryModal
+        isOpen={isModalOpen}
+        onClose={() => {
+          setIsModalOpen(false);
         }}
-      >
-        add transactions
-      </button> */}
-      {/* <button onClick={handleAddNew}>Add new transaction</button>
-      <button onClick={handledDeleteTransaction}>Delete transaction</button>
-      <div>{String(transactions)}</div> */}
-      <TransactionTable />
+        transactionIds={selectedIds}
+      />
     </div>
   );
 }

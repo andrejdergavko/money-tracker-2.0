@@ -47,7 +47,7 @@ const convertRowToTransaction = (
     amount: Number(row[3]),
     amountInUsd: Number((Number(row[3]) / exchangeRate).toFixed(2)),
     bank: 'ipko',
-    originalCsvRow: row,
+    originalCsvRow: JSON.stringify(row),
   };
 };
 

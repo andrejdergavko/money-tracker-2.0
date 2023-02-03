@@ -16,7 +16,7 @@ export type CategoryT = {
 };
 
 export type TransactionT = {
-  id: string;
+  id: number;
   date: string;
   currency: string;
   description: string;
@@ -24,5 +24,5 @@ export type TransactionT = {
   amountInUsd: number;
   bank: string;
   category?: CategoryT;
-  originalCsvRow?: string[];
+  originalCsvRow: string;
 };

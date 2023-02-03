@@ -12,7 +12,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
-        <SnackbarProvider maxSnack={4} autoHideDuration={3000}>
+        <SnackbarProvider maxSnack={4} autoHideDuration={5000}>
           <SwrConfig>
             <Layout>
               <Component {...pageProps} />
