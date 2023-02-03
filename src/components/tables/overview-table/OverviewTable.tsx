@@ -39,7 +39,6 @@ const PreviewTable: FC<PropsT> = ({
         header: 'Category',
         maxSize: 110,
         Cell: ({ cell, table, row }) => {
-          console.log(table);
           return (
             <EditableCategoryCell
               category={cell.getValue<CategoryT>()}
