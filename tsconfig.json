@@ -19,7 +19,8 @@
       "@lib/*": ["src/lib/*"],
       "@hooks/*": ["src/lib/hooks/*"],
       "@components/*": ["src/components/*"],
-      "@ui/*": ["src/components/ui/*"]
+      "@ui/*": ["src/components/ui/*"],
+      "@api/*": ["src/pages/api/*"]
     }
   },
   "include": [

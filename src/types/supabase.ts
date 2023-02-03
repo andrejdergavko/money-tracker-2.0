@@ -11,17 +11,17 @@ export interface Database {
     Tables: {
       categories: {
         Row: {
-          color: string | null
+          color: string
           id: number
           label: string
         }
         Insert: {
-          color?: string | null
+          color: string
           id?: number
           label?: string
         }
         Update: {
-          color?: string | null
+          color?: string
           id?: number
           label?: string
         }
@@ -36,6 +36,7 @@ export interface Database {
           date: string
           description: string | null
           id: number
+          original_csv_row: string | null
         }
         Insert: {
           amount: number
@@ -46,6 +47,7 @@ export interface Database {
           date: string
           description?: string | null
           id?: number
+          original_csv_row?: string | null
         }
         Update: {
           amount?: number
@@ -56,6 +58,7 @@ export interface Database {
           date?: string
           description?: string | null
           id?: number
+          original_csv_row?: string | null
         }
       }
     }
