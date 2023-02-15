@@ -61,9 +61,29 @@ export default async function transactions(
       try {
         const newTransactions: AddTransactionsArgsT = req.body;
 
+        const { data } = await supabase
+          .from('transactions')
+          .select('original_csv_row')
+          .in(
+            'date',
+            newTransactions.map((item) => item.date)
+          )
+          .throwOnError();
+
+        const existingCsvRows = (data || []).map(
+          (item) => item.original_csv_row
+        );
+
+        const uniqueTransactions = newTransactions.filter((transaction) => {
+          const isTransactionUnique = !existingCsvRows.includes(
+            transaction.originalCsvRow
+          );
+          return isTransactionUnique;
+        });
+
         await supabase
           .from('transactions')
-          .insert<InsertTransactionT>(snakecaseKeys(newTransactions))
+          .insert<InsertTransactionT>(snakecaseKeys(uniqueTransactions))
           .throwOnError();
 
         return res.status(200).send({ success: true });
