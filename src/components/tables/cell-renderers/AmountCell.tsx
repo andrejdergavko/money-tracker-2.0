@@ -6,7 +6,11 @@ interface AmountCellPropsT {
 }
 
 const AmountCell: FC<AmountCellPropsT> = ({ amount, currency }) => {
-  return <div>{`${amount?.toFixed(2)} ${currency}`}</div>;
+  return (
+    <div className="whitespace-nowrap">{`${amount?.toFixed(
+      2
+    )} ${currency}`}</div>
+  );
 };
 
 export default AmountCell;
