@@ -32,6 +32,7 @@
     "eslint": "8.31.0",
     "eslint-config-next": "13.1.1",
     "formik": "^2.2.9",
+    "lodash": "^4.17.21",
     "material-react-table": "^1.5.9",
     "next": "13.1.1",
     "notistack": "^2.0.8",

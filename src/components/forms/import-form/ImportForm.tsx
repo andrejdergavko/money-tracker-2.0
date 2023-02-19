@@ -4,8 +4,8 @@ import { ChangeEvent } from 'react';
 import { useFormik } from 'formik';
 import Divider from '@mui/material/Divider';
 
-import { Select, MenuItem } from '@components/ui/Select';
-import { Input } from '@components/ui/Input';
+import Select, { MenuItem } from '@components/ui/Select';
+import Input from '@components/ui/Input';
 import { Button } from '@components/ui/Button';
 import { FormControl } from '@components/ui/FormControl';
 import { BANK_OPTIONS, CURRENCIES } from '@lib/constants';
