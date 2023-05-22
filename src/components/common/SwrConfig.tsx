@@ -1,4 +1,4 @@
-import React, { type FC } from 'react';
+import { type FC } from 'react';
 import { SWRConfig } from 'swr';
 import { useSnackbar } from 'notistack';
 
