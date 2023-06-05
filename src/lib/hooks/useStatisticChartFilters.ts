@@ -7,7 +7,7 @@ import useQueryParam, {
   booleanType,
   stringArrayType,
   numberType,
-} from '@hooks/useQueryParam';
+} from '@lib/hooks/useQueryParam';
 
 // const ALLOWED_FILTERS = [
 //   'startDate',
