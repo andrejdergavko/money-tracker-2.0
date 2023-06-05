@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Divider from '@mui/material/Divider';
 
-import { Routes } from '@lib/enums';
+import { Routes } from '~lib/enums';
 
 const MENU_ITEMS = [
   {

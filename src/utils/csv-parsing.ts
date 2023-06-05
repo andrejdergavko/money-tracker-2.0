@@ -4,7 +4,7 @@ import isDateValid from 'date-fns/isValid';
 import { v4 as uuidv4 } from 'uuid';
 
 import { TransactionT } from '../types/entities';
-import { CURRENCIES } from '@lib/constants';
+import { CURRENCIES } from '~lib/constants';
 
 type RowT = string[];
 

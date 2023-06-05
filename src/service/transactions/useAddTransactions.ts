@@ -1,5 +1,5 @@
 import useSWRMutation from 'swr/mutation';
-import { AddTransactionsArgsT } from '@api/transactions';
+import { AddTransactionsArgsT } from '~api/transactions';
 
 const useAddTransactions = () => {
   const { trigger, data, error, isMutating } = useSWRMutation(

@@ -4,11 +4,11 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import Switch from '@mui/material/Switch';
 
-import { FormControl } from '@components/ui/FormControl';
-import Select, { MenuItem } from '@components/ui/Select';
-import Input from '@components/ui/Input';
-import useStatisticChartFilters from '@lib/hooks/useStatisticChartFilters';
-import { SUMMARIZE_BY_OPTIONS } from '@lib/constants';
+import { FormControl } from '~components/ui/FormControl';
+import Select, { MenuItem } from '~components/ui/Select';
+import Input from '~components/ui/Input';
+import useStatisticChartFilters from '~lib/hooks/useStatisticChartFilters';
+import { SUMMARIZE_BY_OPTIONS } from '~lib/constants';
 
 import CategoriesSelect from './CategoriesSelect';
 

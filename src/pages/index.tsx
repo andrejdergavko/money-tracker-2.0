@@ -1,3 +1,3 @@
-import Transactions from '@components/pages/Transactions';
+import Transactions from '~components/pages/Transactions';
 
 export default Transactions;

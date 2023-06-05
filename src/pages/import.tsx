@@ -1,3 +1,3 @@
-import Import from '@components/pages/Import';
+import Import from '~components/pages/Import';
 
 export default Import;

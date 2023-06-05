@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import Image from 'next/image';
 import { useRouter, NextRouter } from 'next/router';
 
-import { PAGE_NAMES_BY_ROUTE } from '@lib/constants';
+import { PAGE_NAMES_BY_ROUTE } from '~lib/constants';
 
 const Header: FC = () => {
   const router: NextRouter = useRouter();

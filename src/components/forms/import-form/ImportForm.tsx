@@ -3,14 +3,14 @@ import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import Divider from '@mui/material/Divider';
 
-import Select, { MenuItem } from '@components/ui/Select';
-import Input from '@components/ui/Input';
-import { Button } from '@components/ui/Button';
-import { FormControl } from '@components/ui/FormControl';
-import { BANK_OPTIONS, CURRENCIES } from '@lib/constants';
-import useAddTransactions from '@service/transactions/useAddTransactions';
-import PreviewTable from '@components/tables/preview-table';
-import { parseCSV } from '@utils/csv-parsing';
+import Select, { MenuItem } from '~components/ui/Select';
+import Input from '~components/ui/Input';
+import { Button } from '~components/ui/Button';
+import { FormControl } from '~components/ui/FormControl';
+import { BANK_OPTIONS, CURRENCIES } from '~lib/constants';
+import useAddTransactions from '~service/transactions/useAddTransactions';
+import PreviewTable from '~components/tables/preview-table';
+import { parseCSV } from '~utils/csv-parsing';
 
 import { initialValues, validationSchema, type Values } from './config';
 

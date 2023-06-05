@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import camelcaseKeys from 'camelcase-keys';
 
-import { supabase } from '@lib/supabase-client';
+import { supabase } from '~lib/supabase-client';
 
 export default async function categories(
   req: NextApiRequest,

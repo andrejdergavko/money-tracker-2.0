@@ -1,5 +1,5 @@
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
-import { EditTransactionsArgsT } from '@api/transactions';
+import { EditTransactionsArgsT } from '~api/transactions';
 
 const useEditTransactions = (
   config?: SWRMutationConfiguration<

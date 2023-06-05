@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
-import useTransactions from '@service/transactions/useTransactions';
-import useDeleteTransaction from '@service/transactions/useDeleteTransactions';
-import OverviewTable from '@components/tables/overview-table';
-import SetCategoryModal from '@components/modals/SetCategoryModal';
+import useTransactions from '~service/transactions/useTransactions';
+import useDeleteTransaction from '~service/transactions/useDeleteTransactions';
+import OverviewTable from '~components/tables/overview-table';
+import SetCategoryModal from '~components/modals/SetCategoryModal';
 
 export default function Transactions() {
   const [isModalOpen, setIsModalOpen] = useState(false);

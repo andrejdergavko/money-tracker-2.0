@@ -1,8 +1,8 @@
 import { type FC, memo, useMemo } from 'react';
 import MaterialReactTable, { MRT_ColumnDef } from 'material-react-table';
 
-import { Button } from '@components/ui/Button';
-import type { CategoryT, TransactionT } from '@app-types/entities';
+import { Button } from '~components/ui/Button';
+import type { CategoryT, TransactionT } from '~app-types/entities';
 
 import DescriptionCell from '../cell-renderers/DescriptionCell';
 import AmountCell from '../cell-renderers/AmountCell';
