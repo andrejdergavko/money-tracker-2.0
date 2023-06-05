@@ -1,4 +1,4 @@
-import type { IBank, ICurrency } from '../types/entities';
+import type { IBank, ICurrency } from '~types/entities';
 import { Pages, Routes, Banks } from './enums';
 
 export const DAY_IN_MILLISECONDS = 86400000;

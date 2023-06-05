@@ -21,6 +21,7 @@
       "~api/*": ["src/pages/api/*"],
       "~service/*": ["src/service/*"],
       "~app-types/*": ["src/types/*"],
+      "~types/*": ["src/types/*"],
       "~utils/*": ["src/utils/*"]
     }
   },
