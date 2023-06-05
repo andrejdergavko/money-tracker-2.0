@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-import { TransactionT } from '../../../types/entities';
+import { TransactionT } from '@app-types/entities';
 
 export interface Values {
   bank: string;

@@ -8,8 +8,8 @@ import { FormControl } from '@components/ui/FormControl';
 import Select, { MenuItem } from '@components/ui/Select';
 import Input from '@components/ui/Input';
 import useStatisticChartFilters from '@lib/hooks/useStatisticChartFilters';
+import { SUMMARIZE_BY_OPTIONS } from '@lib/constants';
 
-import { SUMMARIZE_BY_OPTIONS } from '../../lib/constants';
 import CategoriesSelect from './CategoriesSelect';
 
 const FilterBlock = () => {

@@ -3,7 +3,7 @@ import MaterialReactTable, { MRT_ColumnDef } from 'material-react-table';
 
 import { Button } from '@components/ui/Button';
 
-import type { TransactionT } from '../../../types/entities';
+import type { TransactionT } from '@app-types/entities';
 import DescriptionCell from '../cell-renderers/DescriptionCell';
 import AmountCell from '../cell-renderers/AmountCell';
 import AmountInUsdCell from '../cell-renderers/AmountInUsdCell';

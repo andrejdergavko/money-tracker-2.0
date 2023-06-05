@@ -2,8 +2,8 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import camelcaseKeys from 'camelcase-keys';
 import snakecaseKeys from 'snakecase-keys';
 
-import { supabase } from '../../lib/supabase-client';
-import { Database } from '../../types/supabase';
+import { supabase } from '@lib/supabase-client';
+import { Database } from '@app-types/supabase';
 
 export type InsertTransactionT =
   Database['public']['Tables']['transactions']['Insert'];
