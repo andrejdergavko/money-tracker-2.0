@@ -8,7 +8,7 @@ import Input from '@components/ui/Input';
 import { Button } from '@components/ui/Button';
 import { FormControl } from '@components/ui/FormControl';
 import { BANK_OPTIONS, CURRENCIES } from '@lib/constants';
-import useAddTransactions from '@lib/hooks/useAddTransactions';
+import useAddTransactions from '@service/transactions/useAddTransactions';
 
 import { parseCSV } from 'src/utils/csv-parsing';
 import PreviewTable from '../../tables/preview-table';

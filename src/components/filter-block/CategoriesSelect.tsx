@@ -2,7 +2,7 @@ import Chip from '@mui/material/Chip';
 import Select, { MenuItem } from '@ui/Select';
 import { SelectChangeEvent } from '@mui/material/Select';
 
-import useCategories from '@hooks/useCategories';
+import useCategories from '@service/categories/useCategories';
 
 interface PropsT {
   values?: string[];

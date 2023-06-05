@@ -20,7 +20,8 @@
       "@hooks/*": ["src/lib/hooks/*"],
       "@components/*": ["src/components/*"],
       "@ui/*": ["src/components/ui/*"],
-      "@api/*": ["src/pages/api/*"]
+      "@api/*": ["src/pages/api/*"],
+      "@service/*": ["src/service/*"]
     }
   },
   "include": [

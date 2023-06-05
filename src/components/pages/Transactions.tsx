@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import useTransactions from '@hooks/useTransactions';
-import useDeleteTransaction from '@lib/hooks/useDeleteTransactions';
+import useTransactions from '@service/transactions/useTransactions';
+import useDeleteTransaction from '@service/transactions/useDeleteTransactions';
 import OverviewTable from '@components/tables/overview-table';
 import SetCategoryModal from '@components/modals/SetCategoryModal';
 

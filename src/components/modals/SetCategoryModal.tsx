@@ -8,8 +8,8 @@ import Radio from '@mui/material/Radio';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 
-import useEditTransactions from '@hooks/useEditTransactions';
-import useCategories from '@hooks/useCategories';
+import useEditTransactions from '@service/transactions/useEditTransactions';
+import useCategories from '@service/categories/useCategories';
 import { Button } from '@components/ui/Button';
 
 interface PropsT {
