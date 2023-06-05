@@ -1,20 +1,9 @@
 import type { BankT, CurrencyT } from '../types/entities';
+import { Pages, Routes, Banks } from './enums';
 
 export const DAY_IN_MILLISECONDS = 86400000;
 export const WEAK_IN_MILLISECONDS = DAY_IN_MILLISECONDS * 7;
 export const MONTH_IN_MILLISECONDS = DAY_IN_MILLISECONDS * 30;
-
-export enum Pages {
-  transactions = 'transactions',
-  statistics = 'statistics',
-  import = 'import',
-}
-
-export enum Routes {
-  transactions = '/',
-  statistics = '/statistics',
-  import = '/import',
-}
 
 export const PAGE_NAMES: { [key in Pages]: string } = {
   [Pages.transactions]: 'Transactions',
@@ -27,11 +16,6 @@ export const PAGE_NAMES_BY_ROUTE: { [key: string]: string } = {
   [Routes.statistics]: PAGE_NAMES[Pages.statistics],
   [Routes.import]: PAGE_NAMES[Pages.import],
 };
-
-export enum Banks {
-  ipko = 'ipko',
-  prior = 'prior',
-}
 
 export const BANK_OPTIONS: BankT[] = [
   {
