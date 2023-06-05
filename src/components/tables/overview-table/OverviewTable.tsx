@@ -2,7 +2,7 @@ import { type FC, memo, useMemo } from 'react';
 import MaterialReactTable, { MRT_ColumnDef } from 'material-react-table';
 
 import { Button } from '~components/ui/Button';
-import type { CategoryT, TransactionT } from '~app-types/entities';
+import type { ICategory, ITransaction } from '~app-types/entities';
 
 import DescriptionCell from '../cell-renderers/DescriptionCell';
 import AmountCell from '../cell-renderers/AmountCell';
@@ -10,7 +10,7 @@ import AmountInUsdCell from '../cell-renderers/AmountInUsdCell';
 import EditableCategoryCell from '../cell-renderers/EditableCategoryCell';
 
 interface PropsT {
-  data: TransactionT[];
+  data: ITransaction[];
   onRowsDelete: (Uuids: string[]) => void;
   onSetCategory: (Uuids: string[]) => void;
 }
@@ -20,7 +20,7 @@ const PreviewTable: FC<PropsT> = ({
   onRowsDelete,
   onSetCategory,
 }) => {
-  const columns: MRT_ColumnDef<TransactionT>[] = useMemo(
+  const columns: MRT_ColumnDef<ITransaction>[] = useMemo(
     () => [
       {
         accessorKey: 'date',
@@ -41,7 +41,7 @@ const PreviewTable: FC<PropsT> = ({
         Cell: ({ cell, table, row }) => {
           return (
             <EditableCategoryCell
-              category={cell.getValue<CategoryT>()}
+              category={cell.getValue<ICategory>()}
               onEdit={() => {
                 onSetCategory([row.original?.uuid]);
               }}

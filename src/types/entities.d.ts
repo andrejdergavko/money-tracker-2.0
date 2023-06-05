@@ -1,21 +1,21 @@
-export type BankT = {
+export interface IBank {
   id: string;
   label: string;
-};
+}
 
-export type CurrencyT = {
+export interface ICurrency {
   id: string;
   label: string;
   code: string;
-};
+}
 
-export type CategoryT = {
+export interface ICategory {
   uuid: string;
   label: string;
   color: string;
-};
+}
 
-export type TransactionT = {
+export interface ITransaction {
   uuid: string;
   date: string;
   currency: string;
@@ -23,6 +23,6 @@ export type TransactionT = {
   amount: number;
   amountInUsd: number;
   bank: string;
-  category?: CategoryT;
+  category?: ICategory;
   originalCsvRow: string;
-};
+}

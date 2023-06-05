@@ -1,4 +1,4 @@
-import type { BankT, CurrencyT } from '../types/entities';
+import type { IBank, ICurrency } from '../types/entities';
 import { Pages, Routes, Banks } from './enums';
 
 export const DAY_IN_MILLISECONDS = 86400000;
@@ -17,7 +17,7 @@ export const PAGE_NAMES_BY_ROUTE: { [key: string]: string } = {
   [Routes.import]: PAGE_NAMES[Pages.import],
 };
 
-export const BANK_OPTIONS: BankT[] = [
+export const BANK_OPTIONS: IBank[] = [
   {
     id: Banks.prior,
     label: 'Prior bank',
@@ -28,7 +28,7 @@ export const BANK_OPTIONS: BankT[] = [
   },
 ];
 
-export const CURRENCIES: CurrencyT[] = [
+export const CURRENCIES: ICurrency[] = [
   {
     id: 'BYN',
     label: 'Belarusian ruble',

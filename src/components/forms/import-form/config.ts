@@ -1,13 +1,13 @@
 import * as yup from 'yup';
 
-import { TransactionT } from '~app-types/entities';
+import { ITransaction } from '~app-types/entities';
 
 export interface Values {
   bank: string;
   currency: string;
   exchangeRate?: number;
   file?: File;
-  transactions: TransactionT[];
+  transactions: ITransaction[];
 }
 
 export const initialValues = {

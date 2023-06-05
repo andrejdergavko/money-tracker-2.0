@@ -3,7 +3,7 @@ import parseDate from 'date-fns/parse';
 import isDateValid from 'date-fns/isValid';
 import { v4 as uuidv4 } from 'uuid';
 
-import { TransactionT } from '../types/entities';
+import { ITransaction } from '../types/entities';
 import { CURRENCIES } from '~lib/constants';
 
 type RowT = string[];
@@ -38,7 +38,7 @@ const isIpkoRowValid = (row: string[]): boolean => {
 const convertRowToTransaction = (
   row: RowT,
   exchangeRate: number
-): TransactionT => {
+): ITransaction => {
   return {
     uuid: uuidv4(),
     date: row[0],
@@ -61,7 +61,7 @@ export const parseCSV = async (
 
   switch (bank) {
     case 'ipko': {
-      const transactions = rows.reduce<TransactionT[]>((acc, row) => {
+      const transactions = rows.reduce<ITransaction[]>((acc, row) => {
         if (isIpkoRowValid(row)) {
           const transaction = convertRowToTransaction(row, exchangeRate);
           acc.push(transaction);

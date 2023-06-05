@@ -3,17 +3,17 @@ import MaterialReactTable, { MRT_ColumnDef } from 'material-react-table';
 
 import { Button } from '~components/ui/Button';
 
-import type { TransactionT } from '~app-types/entities';
+import type { ITransaction } from '~app-types/entities';
 import DescriptionCell from '../cell-renderers/DescriptionCell';
 import AmountCell from '../cell-renderers/AmountCell';
 import AmountInUsdCell from '../cell-renderers/AmountInUsdCell';
 
 type PreviewTablePropsT = {
-  data: TransactionT[];
+  data: ITransaction[];
   onRowsDelete: (rowUuids: string[]) => void;
 };
 
-const columns: MRT_ColumnDef<TransactionT>[] = [
+const columns: MRT_ColumnDef<ITransaction>[] = [
   {
     accessorKey: 'date',
     header: 'Date',

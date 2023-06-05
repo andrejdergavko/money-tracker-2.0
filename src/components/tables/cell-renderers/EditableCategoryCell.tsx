@@ -1,10 +1,10 @@
 import type { FC } from 'react';
 import Chip from '@mui/material/Chip';
 
-import { CategoryT } from '~app-types/entities';
+import { ICategory } from '~app-types/entities';
 
 interface PropsT {
-  category?: CategoryT;
+  category?: ICategory;
   onEdit: () => void;
 }
 
