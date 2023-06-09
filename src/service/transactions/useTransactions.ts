@@ -1,4 +1,6 @@
-import swr, { SWRConfiguration } from 'swr';
+import useSwr, { SWRConfiguration } from 'swr';
+
+import { ITransaction } from '~app-types/entities';
 
 const fetcher = async (url: string) => {
   const res = await fetch(url);
@@ -12,7 +14,11 @@ const fetcher = async (url: string) => {
 };
 
 const useTransactions = (config?: SWRConfiguration) => {
-  const { data, error, isLoading } = swr('/api/transactions', fetcher, config);
+  const { data, error, isLoading } = useSwr<ITransaction[]>(
+    '/api/transactions',
+    fetcher,
+    config
+  );
 
   return {
     transactions: data,

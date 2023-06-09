@@ -1,15 +1,16 @@
+import { FC } from 'react';
 import Chip from '@mui/material/Chip';
-import { SelectChangeEvent } from '@mui/material/Select';
+import { type SelectChangeEvent } from '@mui/material/Select';
 
 import Select, { MenuItem } from '~components/ui/Select';
 import useCategories from '~service/categories/useCategories';
 
-interface PropsT {
+type Props = {
   values?: string[];
   onChange: (values: string[]) => void;
-}
+};
 
-const CategoriesSelect = ({ values, onChange }: PropsT) => {
+const CategoriesSelect: FC<Props> = ({ values, onChange }) => {
   const { categories } = useCategories();
 
   const renderValues = (selectedUuids: string[]) => {

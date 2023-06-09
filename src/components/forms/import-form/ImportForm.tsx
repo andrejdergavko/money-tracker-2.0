@@ -1,10 +1,10 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, FC } from 'react';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import Divider from '@mui/material/Divider';
 
 import Select, { MenuItem } from '~components/ui/Select';
-import Input from '~components/ui/Input';
+import { TextField as Input } from '~components/ui/Input';
 import { Button } from '~components/ui/Button';
 import { FormControl } from '~components/ui/FormControl';
 import { BANK_OPTIONS, CURRENCIES } from '~lib/constants';
@@ -12,9 +12,9 @@ import useAddTransactions from '~service/transactions/useAddTransactions';
 import PreviewTable from '~components/tables/preview-table';
 import { parseCSV } from '~utils/csv-parsing';
 
-import { initialValues, validationSchema, type Values } from './config';
+import { initialValues, validationSchema, type IValues } from './config';
 
-const ImportForm = () => {
+const ImportForm: FC = () => {
   const { addTransactions } = useAddTransactions();
   const { push } = useRouter();
 
@@ -25,7 +25,7 @@ const ImportForm = () => {
     handleChange,
     validateForm,
     errors,
-  } = useFormik<Values>({
+  } = useFormik<IValues>({
     validateOnChange: false,
     initialValues,
     validationSchema,
@@ -35,7 +35,7 @@ const ImportForm = () => {
     },
   });
 
-  const handleParseClick = async () => {
+  const handleParseClick = async (): Promise<void> => {
     await validateForm();
 
     if (values.bank && values.exchangeRate && values.file) {
@@ -49,7 +49,7 @@ const ImportForm = () => {
     }
   };
 
-  const handleRowsDelete = (uuidsToDelete: string[]) => {
+  const handleRowsDelete = (uuidsToDelete: string[]): void => {
     const newTransactions = [...values.transactions].filter(
       (item) => !uuidsToDelete.includes(item.uuid)
     );

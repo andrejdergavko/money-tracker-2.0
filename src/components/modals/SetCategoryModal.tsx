@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { type FC, useState, ChangeEvent, FormEvent } from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -12,25 +12,21 @@ import useEditTransactions from '~service/transactions/useEditTransactions';
 import useCategories from '~service/categories/useCategories';
 import { Button } from '~components/ui/Button';
 
-interface PropsT {
+type Props = {
   isOpen: boolean;
   onClose: () => void;
   transactionUuids: string[];
-}
+};
 
-const SetCategoryModal: FC<PropsT> = ({
-  isOpen,
-  onClose,
-  transactionUuids,
-}) => {
-  const [value, setValue] = React.useState<string>();
+const SetCategoryModal: FC<Props> = ({ isOpen, onClose, transactionUuids }) => {
+  const [value, setValue] = useState<string>();
   const { categories = [] } = useCategories();
 
   const { editTransactions, isEditing } = useEditTransactions({
     onSuccess: () => handleClose(),
   });
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
   };
 
@@ -39,7 +35,7 @@ const SetCategoryModal: FC<PropsT> = ({
     onClose();
   };
 
-  const handleSet = (event: React.FormEvent) => {
+  const handleSet = (event: FormEvent) => {
     event.preventDefault();
     editTransactions({
       uuids: transactionUuids,

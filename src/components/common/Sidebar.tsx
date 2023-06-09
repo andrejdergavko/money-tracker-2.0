@@ -5,7 +5,13 @@ import Divider from '@mui/material/Divider';
 
 import { Routes } from '~lib/enums';
 
-const MENU_ITEMS = [
+type MenuItem = {
+  label: string;
+  icon: string;
+  href: Routes;
+};
+
+const MENU_ITEMS: MenuItem[] = [
   {
     label: 'Transactions',
     icon: 'fa-solid fa-table',

@@ -1,11 +1,9 @@
-import type { FC } from 'react';
+import type { FC, PropsWithChildren } from 'react';
 
 import Header from './Header';
 import Sidebar from './Sidebar';
 
-interface Props {
-  children: JSX.Element;
-}
+type Props = PropsWithChildren<{}>;
 
 const Layout: FC<Props> = ({ children }) => {
   return (

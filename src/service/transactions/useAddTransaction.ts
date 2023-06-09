@@ -1,19 +1,11 @@
 import useSWRMutation from 'swr/mutation';
 
-export type addTransactionArgs = {
-  date: string;
-  currency: string;
-  description?: string;
-  amount: number;
-  amountInUsd: number;
-  bank: string;
-  categoryUuid?: string;
-};
+import { AddTransactionArgsT } from '~api/transactions';
 
 const useAddTransaction = () => {
   const { trigger, data, error, isMutating } = useSWRMutation(
     '/api/transaction',
-    (url: string, { arg }: { arg: addTransactionArgs }) =>
+    (url: string, { arg }: { arg: AddTransactionArgsT }) =>
       fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

@@ -1,5 +1,5 @@
 import useSwr, { SWRConfiguration } from 'swr';
-import { ICategory } from '~app-types/entities';
+import type { ICategory } from '~app-types/entities';
 
 const useCategories = (config?: SWRConfiguration) => {
   const { data, error, isLoading } = useSwr<ICategory[]>(

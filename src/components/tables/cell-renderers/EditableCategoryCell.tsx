@@ -1,14 +1,14 @@
 import type { FC } from 'react';
 import Chip from '@mui/material/Chip';
 
-import { ICategory } from '~app-types/entities';
+import { type ICategory } from '~app-types/entities';
 
-interface PropsT {
+type Props = {
   category?: ICategory;
   onEdit: () => void;
-}
+};
 
-const EditableCategoryCell: FC<PropsT> = ({ category, onEdit }) => {
+const EditableCategoryCell: FC<Props> = ({ category, onEdit }) => {
   return (
     <div className="flex flex-nowrap items-center">
       <>

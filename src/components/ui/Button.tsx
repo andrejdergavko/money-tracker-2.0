@@ -1,6 +1,8 @@
-import { ComponentProps } from 'react';
+import { ComponentProps, FC } from 'react';
 import LoadingButton from '@mui/lab/LoadingButton';
 
-export function Button(props: ComponentProps<typeof LoadingButton>) {
+type Props = ComponentProps<typeof LoadingButton>;
+
+export const Button: FC<Props> = (props) => {
   return <LoadingButton {...props} />;
-}
+};

@@ -1,8 +1,8 @@
 import * as yup from 'yup';
 
-import { ITransaction } from '~app-types/entities';
+import { type ITransaction } from '~app-types/entities';
 
-export interface Values {
+export interface IValues {
   bank: string;
   currency: string;
   exchangeRate?: number;
@@ -10,7 +10,7 @@ export interface Values {
   transactions: ITransaction[];
 }
 
-export const initialValues = {
+export const initialValues: IValues = {
   bank: '',
   currency: '',
   exchangeRate: undefined,

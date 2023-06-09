@@ -1,8 +1,8 @@
 import type { FC } from 'react';
 
-interface DescriptionCellPropsT {
+type DescriptionCellPropsT = {
   description?: string;
-}
+};
 
 const DescriptionCell: FC<DescriptionCellPropsT> = ({ description }) => {
   return (

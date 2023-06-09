@@ -1,9 +1,9 @@
 import type { FC } from 'react';
 
-interface AmountCellPropsT {
+type AmountCellPropsT = {
   amount?: number;
   currency?: string;
-}
+};
 
 const AmountCell: FC<AmountCellPropsT> = ({ amount, currency }) => {
   return (

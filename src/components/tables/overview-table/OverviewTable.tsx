@@ -9,13 +9,13 @@ import AmountCell from '../cell-renderers/AmountCell';
 import AmountInUsdCell from '../cell-renderers/AmountInUsdCell';
 import EditableCategoryCell from '../cell-renderers/EditableCategoryCell';
 
-interface PropsT {
+type Props = {
   data: ITransaction[];
   onRowsDelete: (Uuids: string[]) => void;
   onSetCategory: (Uuids: string[]) => void;
-}
+};
 
-const PreviewTable: FC<PropsT> = ({
+const PreviewTable: FC<Props> = ({
   data = [],
   onRowsDelete,
   onSetCategory,

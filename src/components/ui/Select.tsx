@@ -1,9 +1,12 @@
-import { ComponentProps } from 'react';
+import { ComponentProps, FC } from 'react';
 import MuiMenuItem from '@mui/material/MenuItem';
 import MuiSelect, { SelectProps } from '@mui/material/Select';
 import InputBase from '@mui/material/InputBase';
 
-function CustomInput(props: ComponentProps<typeof InputBase>) {
+type CustomInputProps = ComponentProps<typeof InputBase>;
+type MenuItemProps = ComponentProps<typeof MuiMenuItem>;
+
+const CustomInput: FC<CustomInputProps> = (props) => {
   return (
     <InputBase
       classes={{
@@ -13,14 +16,14 @@ function CustomInput(props: ComponentProps<typeof InputBase>) {
       {...props}
     />
   );
-}
+};
 
-export default function Select<T>(props: SelectProps<T>) {
-  return <MuiSelect input={<CustomInput />} {...props} />;
-}
-
-export function MenuItem(props: ComponentProps<typeof MuiMenuItem>) {
+export const MenuItem: FC<MenuItemProps> = (props) => {
   return (
     <MuiMenuItem classes={{ root: 'text-sm py-1 font-sans' }} {...props} />
   );
+};
+
+export default function Select<T>(props: SelectProps<T>) {
+  return <MuiSelect input={<CustomInput />} {...props} />;
 }

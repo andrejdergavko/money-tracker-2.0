@@ -1,10 +1,8 @@
-import { type FC } from 'react';
+import { PropsWithChildren, type FC } from 'react';
 import { SWRConfig } from 'swr';
 import { useSnackbar } from 'notistack';
 
-interface Props {
-  children: JSX.Element;
-}
+type Props = PropsWithChildren<{}>;
 
 const SwrConfig: FC<Props> = ({ children }) => {
   const { enqueueSnackbar } = useSnackbar();

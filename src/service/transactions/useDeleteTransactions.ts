@@ -1,4 +1,5 @@
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
+
 import { type DeleteTransactionsArgsT } from '~api/transactions';
 
 const useDeleteTransactions = (

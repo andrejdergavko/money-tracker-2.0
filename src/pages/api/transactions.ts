@@ -3,12 +3,12 @@ import camelcaseKeys from 'camelcase-keys';
 import snakecaseKeys from 'snakecase-keys';
 
 import { supabase } from '~lib/supabase-client';
-import { Database } from '~app-types/supabase';
+import type { Database } from '~app-types/supabase';
 
 export type InsertTransactionT =
   Database['public']['Tables']['transactions']['Insert'];
 
-export type AddTransactionsArgsT = {
+export type AddTransactionArgsT = {
   date: string;
   currency: string;
   description?: string;
@@ -17,7 +17,9 @@ export type AddTransactionsArgsT = {
   bank: string;
   categoryUuid?: string;
   originalCsvRow: string;
-}[];
+};
+
+export type AddTransactionsArgsT = AddTransactionArgsT[];
 
 export type EditTransactionsArgsT = {
   uuids: string[];

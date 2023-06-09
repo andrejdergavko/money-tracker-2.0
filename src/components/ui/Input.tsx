@@ -1,7 +1,9 @@
-import { ComponentProps } from 'react';
+import { ComponentProps, FC } from 'react';
 import InputBase from '@mui/material/InputBase';
 
-export default function TextField(props: ComponentProps<typeof InputBase>) {
+type Props = ComponentProps<typeof InputBase>;
+
+export const TextField: FC<Props> = (props) => {
   return (
     <InputBase
       classes={{
@@ -11,4 +13,4 @@ export default function TextField(props: ComponentProps<typeof InputBase>) {
       {...props}
     />
   );
-}
+};

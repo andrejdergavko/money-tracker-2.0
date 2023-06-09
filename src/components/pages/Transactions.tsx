@@ -6,10 +6,10 @@ import OverviewTable from '~components/tables/overview-table';
 import SetCategoryModal from '~components/modals/SetCategoryModal';
 
 export default function Transactions() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [selectedUuids, setSelectedUuids] = useState<string[]>([]);
 
-  const { transactions } = useTransactions();
+  const { transactions = [] } = useTransactions();
   const { deleteTransactions } = useDeleteTransaction();
 
   const handledDeleteTransaction = (uuids: string[]) => {

@@ -1,11 +1,11 @@
 import type { FC } from 'react';
 import Image from 'next/image';
-import { useRouter, NextRouter } from 'next/router';
+import { useRouter } from 'next/router';
 
 import { PAGE_NAMES_BY_ROUTE } from '~lib/constants';
 
 const Header: FC = () => {
-  const router: NextRouter = useRouter();
+  const router = useRouter();
 
   return (
     <nav className="w-full p-4 pb-370px bg-slate-700">
