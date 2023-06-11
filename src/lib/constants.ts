@@ -1,9 +1,12 @@
 import type { IBank, ICurrency } from '~types/entities';
 import { Pages, Routes, Banks } from './enums';
 
-export const DAY_IN_MILLISECONDS = 86400000;
-export const WEAK_IN_MILLISECONDS = DAY_IN_MILLISECONDS * 7;
-export const MONTH_IN_MILLISECONDS = DAY_IN_MILLISECONDS * 30;
+export enum MillisecondsBy {
+  Day = 86400000,
+  Weak = Day * 7,
+  Month = Day * 30,
+  Year = Day * 365,
+}
 
 export const PAGE_NAMES: { [key in Pages]: string } = {
   [Pages.transactions]: 'Transactions',
@@ -41,21 +44,21 @@ export const CURRENCIES: ICurrency[] = [
   },
 ];
 
-export const SUMMARIZE_BY_OPTIONS = [
+export const SUMMARIZE_BY_OPTIONS: { label: string; id: number }[] = [
   {
     label: 'Day',
-    id: DAY_IN_MILLISECONDS,
+    id: MillisecondsBy.Day,
   },
   {
     label: 'Weak',
-    id: WEAK_IN_MILLISECONDS,
+    id: MillisecondsBy.Weak,
   },
   {
     label: 'Month',
-    id: MONTH_IN_MILLISECONDS,
+    id: MillisecondsBy.Month,
   },
   {
     label: 'All time',
-    id: MONTH_IN_MILLISECONDS * 1000,
+    id: MillisecondsBy.Year,
   },
 ];

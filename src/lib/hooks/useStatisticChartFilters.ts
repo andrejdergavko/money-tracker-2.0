@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
 
-import { MONTH_IN_MILLISECONDS } from '../constants';
+import { MillisecondsBy } from '../constants';
 
 import useQueryParam, {
   stringType,
@@ -27,12 +27,12 @@ type FiltersT = {
 
 const defaultFilters = {
   startDate: format(
-    new Date(new Date().getTime() - MONTH_IN_MILLISECONDS),
+    new Date(new Date().getTime() - MillisecondsBy.Month),
     'dd-MM-yyyy'
   ),
   endDate: format(new Date(), 'dd-MM-yyyy'),
   categories: [],
-  summarizeBy: MONTH_IN_MILLISECONDS,
+  summarizeBy: MillisecondsBy.Month,
   isTypeStack: true,
 };
 
