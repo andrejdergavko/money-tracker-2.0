@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import camelcaseKeys from 'camelcase-keys';
 
-import { supabase } from '~lib/supabase-client';
+import { prisma } from '~lib/prisma';
 
 export default async function categories(
   req: NextApiRequest,
@@ -11,12 +10,9 @@ export default async function categories(
     case 'GET': {
       // get categories
       try {
-        const { data: categories } = await supabase
-          .from('categories')
-          .select('*')
-          .throwOnError();
+        const categories = await prisma.category.findMany();
 
-        return res.status(200).json(categories && camelcaseKeys(categories));
+        return res.status(200).json(categories);
       } catch (error) {
         console.error('get categories error', error);
         return res.status(500).json(error);

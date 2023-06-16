@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model Transaction {
+  uuid           String    @id @default(uuid())
+  // date           DateTime  @db.Date
+  date           String
+  currency       String
+  description    String?
+  amount         Float
+  amountInUsd    Float
+  bank           String
+  categoryUuid   String?
+  category       Category? @relation(fields: [categoryUuid], references: [uuid])
+  originalCsvRow Json
+
+  @@index([categoryUuid])
+}
+
+model Category {
+  uuid         String        @id @default(uuid())
+  label        String        @unique
+  color        String
+  transactions Transaction[]
+}

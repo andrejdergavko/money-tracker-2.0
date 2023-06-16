@@ -1,12 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import camelcaseKeys from 'camelcase-keys';
-import snakecaseKeys from 'snakecase-keys';
 
-import { supabase } from '~lib/supabase-client';
-import type { Database } from '~app-types/supabase';
-
-export type InsertTransactionT =
-  Database['public']['Tables']['transactions']['Insert'];
+import { prisma } from '~lib/prisma';
 
 export type AddTransactionArgsT = {
   date: string;
@@ -45,14 +39,9 @@ export default async function transactions(
     case 'GET': {
       // get transactions
       try {
-        const { data: transactions } = await supabase
-          .from('transactions')
-          .select('*, category:categories (*)')
-          .throwOnError();
+        const transactions = await prisma.transaction.findMany();
 
-        return res
-          .status(200)
-          .json(transactions && camelcaseKeys(transactions));
+        return res.status(200).json(transactions);
       } catch (error) {
         console.error('get transactions error', error);
         return res.status(500).json(error);
@@ -63,30 +52,23 @@ export default async function transactions(
       try {
         const newTransactions: AddTransactionsArgsT = req.body;
 
-        const { data } = await supabase
-          .from('transactions')
-          .select('original_csv_row')
-          .in(
-            'date',
-            newTransactions.map((item) => item.date)
-          )
-          .throwOnError();
-
-        const existingCsvRows = (data || []).map(
-          (item) => item.original_csv_row
-        );
+        const currentTransactions = await prisma.transaction.findMany({
+          select: {
+            originalCsvRow: true,
+          },
+        });
 
         const uniqueTransactions = newTransactions.filter((transaction) => {
-          const isTransactionUnique = !existingCsvRows.includes(
-            transaction.originalCsvRow
+          const isTransactionUnique = !currentTransactions.some(
+            (item) => item.originalCsvRow === transaction.originalCsvRow
           );
+
           return isTransactionUnique;
         });
 
-        await supabase
-          .from('transactions')
-          .insert<InsertTransactionT>(snakecaseKeys(uniqueTransactions))
-          .throwOnError();
+        await prisma.transaction.createMany({
+          data: [...uniqueTransactions],
+        });
 
         return res.status(200).send({ success: true });
       } catch (error) {
@@ -99,11 +81,16 @@ export default async function transactions(
       try {
         const { uuids, fields }: EditTransactionsArgsT = req.body;
 
-        await supabase
-          .from('transactions')
-          .update(snakecaseKeys(fields))
-          .in('uuid', uuids)
-          .throwOnError();
+        await prisma.transaction.updateMany({
+          where: {
+            uuid: {
+              in: uuids,
+            },
+          },
+          data: {
+            ...fields,
+          },
+        });
 
         return res.status(200).send({ success: true });
       } catch (error) {
@@ -116,11 +103,14 @@ export default async function transactions(
       try {
         const uuids: DeleteTransactionsArgsT = req.body;
 
-        await supabase
-          .from('transactions')
-          .delete()
-          .in('uuid', uuids)
-          .throwOnError();
+        await prisma.transaction.deleteMany({
+          where: {
+            uuid: {
+              in: uuids,
+            },
+          },
+        });
+
         return res.status(200).send({ success: true });
       } catch (error) {
         console.error('delete transactions error', error);
