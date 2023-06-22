@@ -17,6 +17,7 @@ export interface ICategory {
 
 export interface ITransaction {
   uuid: string;
+  userId: string;
   date: string;
   currency: string;
   description: string;

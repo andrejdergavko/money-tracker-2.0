@@ -5,7 +5,10 @@ import { AddTransactionsArgsT } from '~api/transactions';
 const useAddTransactions = () => {
   const { trigger, data, error, isMutating } = useSWRMutation(
     '/api/transactions',
-    async (url: string, { arg }: { arg: AddTransactionsArgsT }) => {
+    async (
+      url: string,
+      { arg }: { arg: Omit<AddTransactionsArgsT, 'userId'> }
+    ) => {
       const res = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

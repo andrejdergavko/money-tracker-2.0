@@ -1,8 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { getServerSession } from 'next-auth/next';
 
 import { prisma } from '~lib/prisma';
 
+import { authOptions } from './auth/[...nextauth]';
+
 export type AddTransactionArgsT = {
+  userId: string;
   date: string;
   currency: string;
   description?: string;
@@ -35,11 +39,22 @@ export default async function transactions(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  const session = await getServerSession(req, res, authOptions);
+  const userId = session?.user?.id;
+
+  if (!userId) {
+    return res.status(401).send({ message: 'User is not authenticated' });
+  }
+
   switch (req.method) {
     case 'GET': {
       // get transactions
       try {
-        const transactions = await prisma.transaction.findMany();
+        const transactions = await prisma.transaction.findMany({
+          where: {
+            userId: userId,
+          },
+        });
 
         return res.status(200).json(transactions);
       } catch (error) {
@@ -50,16 +65,24 @@ export default async function transactions(
     case 'POST': {
       // create new transactions
       try {
-        const newTransactions: AddTransactionsArgsT = req.body;
+        const newTransactions: AddTransactionsArgsT = req.body.map(
+          (item: AddTransactionArgsT) => ({
+            ...item,
+            userId,
+          })
+        );
 
-        const currentTransactions = await prisma.transaction.findMany({
+        const currentUserTransactions = await prisma.transaction.findMany({
+          where: {
+            userId,
+          },
           select: {
             originalCsvRow: true,
           },
         });
 
         const uniqueTransactions = newTransactions.filter((transaction) => {
-          const isTransactionUnique = !currentTransactions.some(
+          const isTransactionUnique = !currentUserTransactions.some(
             (item) => item.originalCsvRow === transaction.originalCsvRow
           );
 
@@ -83,6 +106,7 @@ export default async function transactions(
 
         await prisma.transaction.updateMany({
           where: {
+            userId,
             uuid: {
               in: uuids,
             },
@@ -105,6 +129,7 @@ export default async function transactions(
 
         await prisma.transaction.deleteMany({
           where: {
+            userId,
             uuid: {
               in: uuids,
             },
