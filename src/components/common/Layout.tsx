@@ -11,7 +11,7 @@ const Layout: FC<Props> = ({ children }) => {
       <Sidebar />
       <div className="w-screen max-h-screen overflow-y-scroll bg-slate-100">
         <Header />
-        <main className="mt-[-340px]">{children}</main>
+        <main className="mt-[-370px]">{children}</main>
       </div>
     </div>
   );
