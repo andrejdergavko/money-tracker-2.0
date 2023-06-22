@@ -6,7 +6,6 @@ import { SnackbarProvider } from 'notistack';
 
 import '../styles/globals.css';
 import theme from '../styles/theme';
-import Layout from '../components/common/Layout';
 import SwrConfig from '../components/common/SwrConfig';
 
 export default function App({
@@ -19,9 +18,7 @@ export default function App({
         <ThemeProvider theme={theme}>
           <SnackbarProvider maxSnack={4} autoHideDuration={5000}>
             <SwrConfig>
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
+              <Component {...pageProps} />
             </SwrConfig>
           </SnackbarProvider>
         </ThemeProvider>
