@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get repository code
-      - uses: actions/checkout@v3
+        uses: actions/checkout@v3
       - name: Install dependencies
-      - run: yarn
+        run: yarn
       - name: Type checking
-      - run: yarn type-check
+        run: yarn type-check
