@@ -1,0 +1,17 @@
+name: Type checking
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  type-check:
+    name: Type checking
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get repository code
+      - uses: actions/checkout@v3
+      - name: Install dependencies
+        run: yarn
+      - name: Type checking
+        run: yarn type-check

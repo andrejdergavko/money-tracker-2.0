@@ -9,7 +9,7 @@
     "analyze-build": " ANALYZE=true yarn build",
     "start": "next start",
     "lint": "next lint",
-    "tsc": "tsc"
+    "type-check": "tsc"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
