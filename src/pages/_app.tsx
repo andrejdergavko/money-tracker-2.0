@@ -3,6 +3,7 @@ import { SessionProvider } from 'next-auth/react';
 import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { SnackbarProvider } from 'notistack';
+import { Analytics } from '@vercel/analytics/react';
 
 import '../styles/globals.css';
 import theme from '../styles/theme';
@@ -19,6 +20,7 @@ export default function App({
           <SnackbarProvider maxSnack={4} autoHideDuration={5000}>
             <SwrConfig>
               <Component {...pageProps} />
+              <Analytics />
             </SwrConfig>
           </SnackbarProvider>
         </ThemeProvider>
