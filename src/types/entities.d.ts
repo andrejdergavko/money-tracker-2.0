@@ -27,3 +27,5 @@ export interface ITransaction {
   category?: ICategory;
   originalCsvRow: string;
 }
+
+export type ParsedTransaction = Omit<ITransaction, 'userId'>;
