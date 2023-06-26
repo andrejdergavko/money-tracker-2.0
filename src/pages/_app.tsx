@@ -21,6 +21,7 @@ export default function App({
             <SwrConfig>
               <Component {...pageProps} />
               <Analytics />
+              <div>111</div>
             </SwrConfig>
           </SnackbarProvider>
         </ThemeProvider>
