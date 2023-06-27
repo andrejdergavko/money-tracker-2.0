@@ -1,5 +1,7 @@
 import { FC, memo } from 'react';
 import MaterialReactTable, { MRT_ColumnDef } from 'material-react-table';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { Button } from '~components/ui/Button';
 
@@ -101,7 +103,7 @@ const PreviewTable: FC<PreviewTablePropsT> = ({ data, onRowsDelete }) => {
           size="small"
           color="error"
         >
-          <i className="fa-solid fa-trash mr-2 text-xs" />
+          <FontAwesomeIcon icon={faTrash} className="mr-2" size="sm" />
           Delete
         </Button>
       )}
@@ -123,6 +125,7 @@ const PreviewTable: FC<PreviewTablePropsT> = ({ data, onRowsDelete }) => {
           }}
         >
           <i className="fa-solid fa-trash text-xs" />
+          <FontAwesomeIcon icon={faTrash} size="sm" />
         </Button>
       )}
       positionActionsColumn="last"

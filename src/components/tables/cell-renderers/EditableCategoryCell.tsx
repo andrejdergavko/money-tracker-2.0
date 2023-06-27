@@ -1,5 +1,7 @@
 import type { FC } from 'react';
 import Chip from '@mui/material/Chip';
+import { faPen } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { type ICategory } from '~app-types/entities';
 
@@ -21,8 +23,10 @@ const EditableCategoryCell: FC<Props> = ({ category, onEdit }) => {
             size="small"
           />
         )}
-        <i
-          className="fa-solid fa-pen ml-2 cursor-pointer text-xs text-slate-600"
+        <FontAwesomeIcon
+          icon={faPen}
+          size="lg"
+          className="ml-2 cursor-pointer text-xs text-slate-600"
           onClick={onEdit}
         />
       </>

@@ -2,29 +2,36 @@ import type { FC } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Divider from '@mui/material/Divider';
+import {
+  faTable,
+  faChartPie,
+  faFileImport,
+  type IconDefinition,
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { Routes } from '~lib/enums';
 
 type MenuItem = {
   label: string;
-  icon: string;
+  icon: IconDefinition;
   href: Routes;
 };
 
 const MENU_ITEMS: MenuItem[] = [
   {
     label: 'Transactions',
-    icon: 'fa-solid fa-table',
+    icon: faTable,
     href: Routes.transactions,
   },
   {
     label: 'Statistics',
-    icon: 'fa-solid fa-chart-pie',
+    icon: faChartPie,
     href: Routes.statistics,
   },
   {
     label: 'Import',
-    icon: 'fa-solid fa-file-import',
+    icon: faFileImport,
     href: Routes.import,
   },
 ];
@@ -53,10 +60,12 @@ const Sidebar: FC = () => {
                   : ''
               }`}
             >
-              <i
+              <FontAwesomeIcon
                 className={`${item.icon} mr-3 text-base ${
                   router.pathname === item.href ? 'text-sky-500' : 'opacity-40'
                 }`}
+                size="lg"
+                icon={item.icon}
               />
               {item.label}
             </Link>

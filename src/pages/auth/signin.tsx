@@ -1,14 +1,20 @@
 import { getServerSession } from 'next-auth/next';
 import type { GetServerSidePropsContext } from 'next';
 import { getProviders, signIn } from 'next-auth/react';
+import {
+  faGithub,
+  faGoogle,
+  faFacebook,
+} from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { Button } from '~components/ui/Button';
 import { authOptions } from '~api/auth/[...nextauth]';
 
 const AuthProvidersIcons: Record<string, JSX.Element> = {
-  github: <i className="fa-brands fa-github mr-2" />,
-  google: <i className="fa-brands fa-google mr-2" />,
-  facebook: <i className="fa-brands fa-facebook mr-2" />,
+  github: <FontAwesomeIcon icon={faGithub} className="mr-2" />,
+  google: <FontAwesomeIcon icon={faGoogle} className="mr-2" />,
+  facebook: <FontAwesomeIcon icon={faFacebook} className="mr-2" />,
 };
 
 type NextAuthProviders = ReturnType<typeof getProviders>;

@@ -1,5 +1,7 @@
 import { type FC, memo, useMemo } from 'react';
 import MaterialReactTable, { MRT_ColumnDef } from 'material-react-table';
+import { faTrash, faPen } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { Button } from '~components/ui/Button';
 import type { ICategory, ITransaction } from '~app-types/entities';
@@ -130,7 +132,7 @@ const PreviewTable: FC<Props> = ({
             size="small"
             color="error"
           >
-            <i className="fa-solid fa-trash mr-2 text-xs" />
+            <FontAwesomeIcon icon={faTrash} className="mr-2" size="sm" />
             Delete
           </Button>
           <Button
@@ -150,7 +152,7 @@ const PreviewTable: FC<Props> = ({
             variant="contained"
             size="small"
           >
-            {/* <i className="fa-solid fa-trash mr-2 text-xs" /> */}
+            <FontAwesomeIcon icon={faPen} size="sm" className="mr-2" />
             Set category
           </Button>
         </div>
@@ -172,7 +174,7 @@ const PreviewTable: FC<Props> = ({
             onRowsDelete([row.original?.uuid]);
           }}
         >
-          <i className="fa-solid fa-trash text-xs" />
+          <FontAwesomeIcon icon={faTrash} size="sm" />
         </Button>
       )}
       positionActionsColumn="last"
