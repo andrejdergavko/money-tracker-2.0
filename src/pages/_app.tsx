@@ -4,10 +4,14 @@ import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { SnackbarProvider } from 'notistack';
 import { Analytics } from '@vercel/analytics/react';
+import { config } from '@fortawesome/fontawesome-svg-core';
+import '@fortawesome/fontawesome-svg-core/styles.css';
 
 import '../styles/globals.css';
 import theme from '../styles/theme';
 import SwrConfig from '../components/common/SwrConfig';
+
+config.autoAddCss = false;
 
 export default function App({
   Component,
