@@ -20,8 +20,7 @@ const Header: FC = () => {
 
         <div className="flex">
           <Button
-            // className="mr-2 px-4 text-white normal-case"
-            className="button"
+            className="mr-2 px-4 text-white normal-case"
             variant="text"
             size="medium"
             onClick={() => signOut()}
