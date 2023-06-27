@@ -6,6 +6,7 @@ import { SnackbarProvider } from 'notistack';
 import { Analytics } from '@vercel/analytics/react';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
+import CssBaseline from '@mui/material/CssBaseline';
 
 import '../styles/globals.css';
 import theme from '../styles/theme';
@@ -23,6 +24,7 @@ export default function App({
         <ThemeProvider theme={theme}>
           <SnackbarProvider maxSnack={4} autoHideDuration={5000}>
             <SwrConfig>
+              <CssBaseline />
               <Component {...pageProps} />
               <Analytics />
             </SwrConfig>
