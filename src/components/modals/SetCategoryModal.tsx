@@ -1,4 +1,4 @@
-import { type FC, useState, ChangeEvent, FormEvent } from 'react';
+import { type FC, useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -7,8 +7,11 @@ import RadioGroup from '@mui/material/RadioGroup';
 import Radio from '@mui/material/Radio';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import useEditTransactions from '~service/transactions/useEditTransactions';
+import useTransactions from '~service/transactions/useTransactions';
+import useDetermineCategory from '~service/openai/useDetermineCategory';
 import useCategories from '~service/categories/useCategories';
 import { Button } from '~components/ui/Button';
 
@@ -20,11 +23,31 @@ type Props = {
 
 const SetCategoryModal: FC<Props> = ({ isOpen, onClose, transactionUuids }) => {
   const [value, setValue] = useState<string>();
+  const [determinedCategory, setDeterminedCategory] = useState<string>();
+
+  const { transactions = [] } = useTransactions();
   const { categories = [] } = useCategories();
 
+  const { determineCategory, isLoading } = useDetermineCategory({
+    onSuccess: (data) => setDeterminedCategory(data),
+  });
   const { editTransactions, isEditing } = useEditTransactions({
     onSuccess: () => handleClose(),
   });
+
+  const selectedTransactions = transactions.filter((transaction) =>
+    transactionUuids.includes(transaction.uuid)
+  );
+
+  useEffect(() => {
+    if (
+      !determinedCategory &&
+      selectedTransactions.length &&
+      categories.length
+    ) {
+      determineCategory({ transactions: selectedTransactions, categories });
+    }
+  }, [transactions, transactionUuids, categories]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
@@ -32,6 +55,7 @@ const SetCategoryModal: FC<Props> = ({ isOpen, onClose, transactionUuids }) => {
 
   const handleClose = () => {
     setValue(undefined);
+    setDeterminedCategory(undefined);
     onClose();
   };
 
@@ -45,12 +69,17 @@ const SetCategoryModal: FC<Props> = ({ isOpen, onClose, transactionUuids }) => {
 
   return (
     <Dialog open={isOpen} onClose={handleClose}>
-      <form
-        className="flex flex-col max-h-[700px] w-[400px]"
-        onSubmit={handleSet}
-      >
+      <form onSubmit={handleSet}>
         <DialogTitle id="alert-dialog-title">Select the category</DialogTitle>
         <DialogContent dividers>
+          Determined category:{' '}
+          {isLoading ? (
+            <CircularProgress size={15} />
+          ) : (
+            <b>{determinedCategory}</b>
+          )}
+        </DialogContent>
+        <DialogContent>
           <FormControl>
             <RadioGroup name="categories" value={value} onChange={handleChange}>
               {categories.map((category) => (
