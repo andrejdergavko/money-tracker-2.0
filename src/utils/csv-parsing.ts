@@ -89,7 +89,7 @@ const convertPriorRowToTransaction = (
   return {
     uuid: uuidv4(),
     date,
-    currency: row[4],
+    currency: row[3],
     description: row[1],
     amount: stringToNumber(row[2]),
     amountInUsd: Number((stringToNumber(row[2]) / exchangeRate).toFixed(2)),
@@ -123,8 +123,6 @@ export const parseCSV = async (
       const transactions = rows.reduce<ParsedTransaction[]>((acc, row) => {
         if (isPriorRowValid(row)) {
           const transaction = convertPriorRowToTransaction(row, exchangeRate);
-          console.log('transaction', transaction); // <--
-
           acc.push(transaction);
         }
 

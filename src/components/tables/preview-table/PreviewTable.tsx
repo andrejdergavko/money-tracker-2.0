@@ -124,7 +124,6 @@ const PreviewTable: FC<PreviewTablePropsT> = ({ data, onRowsDelete }) => {
             onRowsDelete([row.original?.uuid]);
           }}
         >
-          <i className="fa-solid fa-trash text-xs" />
           <FontAwesomeIcon icon={faTrash} size="sm" />
         </Button>
       )}

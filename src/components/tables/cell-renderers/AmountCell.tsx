@@ -7,9 +7,9 @@ type AmountCellPropsT = {
 
 const AmountCell: FC<AmountCellPropsT> = ({ amount, currency }) => {
   return (
-    <div className="whitespace-nowrap">{`${amount?.toFixed(
-      2
-    )} ${currency}`}</div>
+    <div className="whitespace-nowrap">
+      {`${amount?.toFixed(2)} ${currency}`}
+    </div>
   );
 };
 
