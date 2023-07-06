@@ -54,6 +54,9 @@ export default async function transactions(
           where: {
             userId: userId,
           },
+          include: {
+            category: true,
+          },
         });
 
         return res.status(200).json(transactions);
