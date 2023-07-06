@@ -1,7 +1,5 @@
 import { format } from 'date-fns';
 
-import { MillisecondsBy } from '../constants';
-
 import useQueryParam, {
   stringType,
   booleanType,
@@ -9,31 +7,25 @@ import useQueryParam, {
   numberType,
 } from '~lib/hooks/useQueryParam';
 
-// const ALLOWED_FILTERS = [
-//   'startDate',
-//   'endDate',
-//   'categories',
-//   'summarizeBy',
-//   'isTypeStack',
-// ] as const;
+import { MillisecondsBy } from '../constants';
 
 type FiltersT = {
   startDate: string;
   endDate: string;
   categories?: string[];
   summarizeBy: number;
-  isTypeStack: boolean;
+  isStackType: boolean;
 };
 
 const defaultFilters = {
   startDate: format(
     new Date(new Date().getTime() - MillisecondsBy.Month),
-    'dd-MM-yyyy'
+    'yyyy-MM-dd'
   ),
-  endDate: format(new Date(), 'dd-MM-yyyy'),
+  endDate: format(new Date(), 'yyyy-MM-dd'),
   categories: [],
   summarizeBy: MillisecondsBy.Month,
-  isTypeStack: true,
+  isStackType: false,
 };
 
 const useStatisticChartFilters = () => {
@@ -47,8 +39,8 @@ const useStatisticChartFilters = () => {
     'summarizeBy',
     numberType
   );
-  const [isTypeStack, setIsTypeStack] = useQueryParam(
-    'isTypeStack',
+  const [isStackType, setIsStackType] = useQueryParam(
+    'isStackType',
     booleanType
   );
 
@@ -57,15 +49,7 @@ const useStatisticChartFilters = () => {
     endDate: endDate != null ? endDate : defaultFilters.endDate,
     categories: categories != null ? categories : defaultFilters.categories,
     summarizeBy: summarizeBy != null ? summarizeBy : defaultFilters.summarizeBy,
-    isTypeStack: isTypeStack != null ? isTypeStack : defaultFilters.isTypeStack,
-  };
-
-  const setters = {
-    startDate: setStartDate,
-    endDate: setEndDate,
-    categories: setCategories,
-    summarizeBy: setSummarizeBy,
-    isTypeStack: setIsTypeStack,
+    isStackType: isStackType != null ? isStackType : defaultFilters.isStackType,
   };
 
   return {
@@ -75,7 +59,7 @@ const useStatisticChartFilters = () => {
       setEndDate,
       setCategories,
       setSummarizeBy,
-      setIsTypeStack,
+      setIsStackType,
     },
   };
 };

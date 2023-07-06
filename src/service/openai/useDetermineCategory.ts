@@ -35,8 +35,6 @@ const useDetermineCategory = (
       const assistantMessage = await res.json();
       const category = JSON.parse(assistantMessage).category;
 
-      console.log('assistantMessage', JSON.parse(assistantMessage)); // <--
-
       if (!category) {
         throw new Error(
           `Something went wrong during creating chat completion. ChatGPT answer: ${assistantMessage}`

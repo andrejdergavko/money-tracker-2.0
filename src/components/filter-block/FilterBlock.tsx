@@ -14,7 +14,7 @@ import CategoriesSelect from './CategoriesSelect';
 
 const FilterBlock = () => {
   const {
-    filters: { startDate, endDate, categories, summarizeBy, isTypeStack },
+    filters: { startDate, endDate, categories, summarizeBy, isStackType },
     setters,
   } = useStatisticChartFilters();
 
@@ -29,10 +29,10 @@ const FilterBlock = () => {
         </label>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
-            value={dayjs(startDate, 'DD-MM-YYYY')}
-            inputFormat="DD-MM-YYYY"
+            value={dayjs(startDate, 'YYYY-MM-DD')}
+            inputFormat="YYYY-MM-DD"
             onChange={(newValue) => {
-              newValue && setters.setStartDate(newValue.format('DD-MM-YYYY'));
+              newValue && setters.setStartDate(newValue.format('YYYY-MM-DD'));
             }}
             renderInput={({ inputRef, inputProps, InputProps }) => (
               <>
@@ -58,10 +58,10 @@ const FilterBlock = () => {
         </label>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
-            value={dayjs(endDate, 'DD-MM-YYYY')}
-            inputFormat="DD-MM-YYYY"
+            value={dayjs(endDate, 'YYYY-MM-DD')}
+            inputFormat="YYYY-MM-DD"
             onChange={(newValue) => {
-              newValue && setters.setEndDate(newValue.format('DD-MM-YYYY'));
+              newValue && setters.setEndDate(newValue.format('YYYY-MM-DD'));
             }}
             renderInput={({ inputRef, inputProps, InputProps }) => (
               <>
@@ -122,12 +122,12 @@ const FilterBlock = () => {
           className="block uppercase text-slate-600 text-xs font-bold mb-2"
           htmlFor="summarize-by-select-label"
         >
-          Is type stack
+          Is stack
         </label>
         <Switch
-          checked={isTypeStack}
+          checked={isStackType}
           onChange={(event) => {
-            setters.setIsTypeStack(event.target.checked);
+            setters.setIsStackType(event.target.checked);
           }}
         />
       </FormControl>
