@@ -72,11 +72,11 @@ const SetCategoryModal: FC<Props> = ({ isOpen, onClose, transactionUuids }) => {
       <form onSubmit={handleSet}>
         <DialogTitle id="alert-dialog-title">Select the category</DialogTitle>
         <DialogContent dividers>
-          Determined category:{' '}
+          Determined category:
           {isLoading ? (
             <CircularProgress size={15} />
           ) : (
-            <b>{determinedCategory}</b>
+            <b className="ml-2">{determinedCategory}</b>
           )}
         </DialogContent>
         <DialogContent>
