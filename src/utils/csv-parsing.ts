@@ -1,14 +1,21 @@
 import { parse } from 'papaparse';
 import parseDate from 'date-fns/parse';
+import format from 'date-fns/format';
 import isDateValid from 'date-fns/isValid';
 import { v4 as uuidv4 } from 'uuid';
 
-import { ITransaction, ParsedTransaction } from '~types/entities';
+import { ParsedTransaction } from '~types/entities';
 import { CURRENCIES } from '~lib/constants';
+import { Banks } from '~lib/enums';
 
 type RowT = string[];
 
-const isNumeric = (n: string) => !!Number(n);
+const isNumeric = (value: any): boolean =>
+  !isNaN(parseFloat(value)) && isFinite(value);
+const stringToNumber = (string: string): number =>
+  Number(string.replace(',', '.'));
+const isCurrencyKnown = (currency: string) =>
+  CURRENCIES.some((item) => item.code === currency);
 
 const isIpkoRowValid = (row: string[]): boolean => {
   const date = row[0];
@@ -17,8 +24,28 @@ const isIpkoRowValid = (row: string[]): boolean => {
   const description = row[7];
   const parsedDate = parseDate(date, 'yyyy-MM-dd', new Date());
 
-  const isCurrencyKnown = (currency: string) =>
-    CURRENCIES.some((item) => item.code === currency);
+  if (!isDateValid(parsedDate)) {
+    return false;
+  }
+  if (!isNumeric(amount)) {
+    return false;
+  }
+  if (!isCurrencyKnown(currency)) {
+    return false;
+  }
+  if (!description) {
+    return false;
+  }
+
+  return true;
+};
+
+const isPriorRowValid = (row: string[]): boolean => {
+  const date = row[0];
+  const description = row[1];
+  const amount = row[2] && stringToNumber(row[2]);
+  const currency = row[3];
+  const parsedDate = parseDate(date, 'dd.MM.yyyy HH:mm:ss', new Date());
 
   if (!isDateValid(parsedDate)) {
     return false;
@@ -35,7 +62,7 @@ const isIpkoRowValid = (row: string[]): boolean => {
   return true;
 };
 
-const convertRowToTransaction = (
+const convertIpkoRowToTransaction = (
   row: RowT,
   exchangeRate: number
 ): ParsedTransaction => {
@@ -46,7 +73,27 @@ const convertRowToTransaction = (
     description: `${row[7]} ${row[8]} ${row[9]}`,
     amount: Number(row[3]),
     amountInUsd: Number((Number(row[3]) / exchangeRate).toFixed(2)),
-    bank: 'ipko',
+    bank: Banks.ipko,
+    originalCsvRow: JSON.stringify(row),
+  };
+};
+
+const convertPriorRowToTransaction = (
+  row: RowT,
+  exchangeRate: number
+): ParsedTransaction => {
+  const date = format(
+    parseDate(row[0], 'dd.MM.yyyy HH:mm:ss', new Date()),
+    'yyyy-MM-dd'
+  );
+  return {
+    uuid: uuidv4(),
+    date,
+    currency: row[4],
+    description: row[1],
+    amount: stringToNumber(row[2]),
+    amountInUsd: Number((stringToNumber(row[2]) / exchangeRate).toFixed(2)),
+    bank: Banks.prior,
     originalCsvRow: JSON.stringify(row),
   };
 };
@@ -63,7 +110,7 @@ export const parseCSV = async (
     case 'ipko': {
       const transactions = rows.reduce<ParsedTransaction[]>((acc, row) => {
         if (isIpkoRowValid(row)) {
-          const transaction = convertRowToTransaction(row, exchangeRate);
+          const transaction = convertIpkoRowToTransaction(row, exchangeRate);
           acc.push(transaction);
         }
 
@@ -73,7 +120,18 @@ export const parseCSV = async (
       return transactions;
     }
     case 'prior': {
-      return;
+      const transactions = rows.reduce<ParsedTransaction[]>((acc, row) => {
+        if (isPriorRowValid(row)) {
+          const transaction = convertPriorRowToTransaction(row, exchangeRate);
+          console.log('transaction', transaction); // <--
+
+          acc.push(transaction);
+        }
+
+        return acc;
+      }, []);
+
+      return transactions;
     }
     default: {
       return;
