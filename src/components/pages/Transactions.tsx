@@ -7,9 +7,9 @@ export default function Transactions() {
 
   return (
     <Layout>
-      <div className="mx-14 mb-14 rounded overflow-hidden">
-        <div className="px-8 py-6 bg-slate-200">
-          <h6 className="text-xl font-bold">Transactions table</h6>
+      <div className="mx-14 mb-14 rounded-xl overflow-hidden">
+        <div className="px-4 py-3 bg-slate-100">
+          <h6 className="mx-4 text-lg font-medium">Transactions table</h6>
         </div>
         <OverviewTable data={transactions} />
       </div>

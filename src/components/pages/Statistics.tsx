@@ -59,22 +59,14 @@ const Statistics: FC = () => {
   return (
     <Layout>
       <div className="mx-14 mb-14">
-        <div className="bg-white rounded shadow-lg">
-          <div className="px-4 py-3 bg-slate-100 rounded-t">
-            <h6 className="mx-4 text-lg font-medium">Filters</h6>
+        <div className="bg-white rounded-xl  overflow-hidden">
+          <div className="px-4 py-3 bg-slate-100">
+            <h6 className="mx-4 text-lg font-medium">Overview</h6>
           </div>
-
-          <div className="py-5 px-2">
+          <div className="py-5 px-4">
             <FilterBlock />
           </div>
-        </div>
-
-        <div className="my-5 bg-white rounded shadow-lg overflow-hidden">
-          <div className="px-6 py-4 rounded-t">
-            <h6 className="mx-2 text-xs text-gray-400 font-normal">OVERVIEW</h6>
-            <h6 className="mx-2 text-lg font-medium">Total amount</h6>
-          </div>
-          <div className="h-[450px]">
+          <div className="h-[450px] mt-2">
             <ParentSize>
               {({ width, height }) => (
                 <StatisticChart
@@ -92,7 +84,7 @@ const Statistics: FC = () => {
         </div>
 
         {selectedPeriod && (
-          <div className="my-5 bg-white rounded shadow-lg overflow-hidden">
+          <div className="my-5 bg-white rounded-xl overflow-hidden">
             <OverviewTable data={selectedTransactions} />
           </div>
         )}

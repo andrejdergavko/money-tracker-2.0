@@ -59,12 +59,12 @@ const ImportForm: FC = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="mx-14 mb-14  bg-slate-200 rounded shadow-lg">
-        <div className="p-6 bg-slate-50 rounded-t">
-          <h6 className="text-xl font-bold">Add new transactions</h6>
+      <div className="mx-14 mb-14  bg-slate-200 rounded-xl overflow-hidden">
+        <div className="px-4 py-3 bg-slate-50 ">
+          <h6 className="mx-4 text-lg font-medium">Add new transactions</h6>
         </div>
         <div className="px-10 pb-10">
-          <h6 className="text-slate-400 text-sm mt-3 mb-6 font-bold uppercase">
+          <h6 className="text-slate-400 text-sm mt-7 mb-6 font-bold uppercase">
             Parsing settings
           </h6>
 
