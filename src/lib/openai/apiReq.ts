@@ -7,6 +7,7 @@ export async function chatgpt(message: string): Promise<string> {
     const response = await openai.createChatCompletion({
       model: 'gpt-3.5-turbo',
       messages: [{ role: 'user', content: message }],
+      temperature: 0.1,
     });
 
     if (response.status === 200) {

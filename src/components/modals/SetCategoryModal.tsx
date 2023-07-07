@@ -29,17 +29,7 @@ const SetCategoryModal: FC<Props> = ({ isOpen, onClose, transactionUuids }) => {
   const { categories = [] } = useCategories();
 
   const { determineCategory, isLoading } = useDetermineCategory({
-    onSuccess: (categoryLabel) => {
-      if (!value) {
-        const category = categories.find(
-          (category) => category.label === categoryLabel
-        );
-
-        category && setValue(category?.uuid);
-      }
-
-      setDeterminedCategory(categoryLabel);
-    },
+    onSuccess: setDeterminedCategory,
   });
   const { editTransactions, isEditing } = useEditTransactions({
     onSuccess: () => handleClose(),
@@ -58,6 +48,16 @@ const SetCategoryModal: FC<Props> = ({ isOpen, onClose, transactionUuids }) => {
       determineCategory({ transactions: selectedTransactions, categories });
     }
   }, [transactions, transactionUuids, categories]);
+
+  useEffect(() => {
+    if (!value && determinedCategory) {
+      const category = categories.find(
+        (category) => category.label === determinedCategory
+      );
+
+      category && setValue(category?.uuid);
+    }
+  }, [determinedCategory]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
