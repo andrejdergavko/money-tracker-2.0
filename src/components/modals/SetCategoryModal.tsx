@@ -22,14 +22,24 @@ type Props = {
 };
 
 const SetCategoryModal: FC<Props> = ({ isOpen, onClose, transactionUuids }) => {
-  const [value, setValue] = useState<string>();
+  const [value, setValue] = useState<string>('');
   const [determinedCategory, setDeterminedCategory] = useState<string>();
 
   const { transactions = [] } = useTransactions();
   const { categories = [] } = useCategories();
 
   const { determineCategory, isLoading } = useDetermineCategory({
-    onSuccess: (data) => setDeterminedCategory(data),
+    onSuccess: (categoryLabel) => {
+      if (!value) {
+        const category = categories.find(
+          (category) => category.label === categoryLabel
+        );
+
+        category && setValue(category?.uuid);
+      }
+
+      setDeterminedCategory(categoryLabel);
+    },
   });
   const { editTransactions, isEditing } = useEditTransactions({
     onSuccess: () => handleClose(),
@@ -54,7 +64,7 @@ const SetCategoryModal: FC<Props> = ({ isOpen, onClose, transactionUuids }) => {
   };
 
   const handleClose = () => {
-    setValue(undefined);
+    setValue('');
     setDeterminedCategory(undefined);
     onClose();
   };
