@@ -8,6 +8,7 @@ import useQueryParam, { numberType } from '~lib/hooks/useQueryParam';
 import FilterBlock from '~components/filter-block';
 import StatisticChart from '~components/charts/statisticChart';
 import Layout from '~components/common/Layout';
+import OverviewTable from '~components/OverviewTable';
 import {
   filterTransactions,
   groupByInterval,
@@ -90,9 +91,11 @@ const Statistics: FC = () => {
           </div>
         </div>
 
-        {/* <div className="my-5 bg-white rounded shadow-lg overflow-hidden">
-          <PreviewTable data={selectedTransactions} onRowsDelete={() => {}} />
-        </div> */}
+        {selectedPeriod && (
+          <div className="my-5 bg-white rounded shadow-lg overflow-hidden">
+            <OverviewTable data={selectedTransactions} />
+          </div>
+        )}
       </div>
     </Layout>
   );
