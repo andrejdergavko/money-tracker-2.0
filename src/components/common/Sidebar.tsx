@@ -40,7 +40,7 @@ const Sidebar: FC = () => {
   const router = useRouter();
 
   return (
-    <aside className="w-80 px-6 py-4 shadow-xl">
+    <aside className="w-[260px] px-6 py-4 shadow-xl">
       <div className="pt-3 pb-1">
         <Link href="/" className="font-bold uppercase">
           Money tracker
