@@ -26,8 +26,8 @@ type Props = {
 export default function SignIn({ providers }: Props) {
   return (
     <div className="flex h-screen justify-center items-center bg-slate-700">
-      <div className="w-[420px] mx-14 mb-14 bg-slate-50 rounded shadow-lg">
-        <div className="py-7 px-10 bg-slate-200 rounded-t ">
+      <div className="w-[420px] mx-14 mb-14 bg-slate-50 shadow-lg rounded-xl overflow-hidden">
+        <div className="flex justify-center px-4 py-6 bg-slate-200">
           <h6 className="text-xl font-bold">Sign in to your account</h6>
         </div>
         <div className="p-10 flex flex-col gap-4">
