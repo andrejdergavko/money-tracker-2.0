@@ -14,8 +14,8 @@ const CategoriesSelect: FC<Props> = ({ values, onChange }) => {
   const { categories } = useCategories();
 
   const renderValues = (selectedUuids?: string[]) => {
-    const selectedCategories = (categories || []).filter((item) =>
-      selectedUuids?.includes(item.uuid)
+    const selectedCategories = (categories || []).filter(
+      (item) => selectedUuids?.includes(item.uuid)
     );
 
     return (
