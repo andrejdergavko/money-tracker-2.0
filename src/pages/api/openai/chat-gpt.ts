@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getServerSession } from 'next-auth/next';
 
-import { chatgpt } from '~lib/openai/apiReq';
+import { createChatCompletion } from '~modules/openai/api-req';
 
 import { authOptions } from '../auth/[...nextauth]';
 
@@ -21,7 +21,7 @@ export default async function chatGPT(
       try {
         const message: string = req.body;
 
-        const assistantMessage = await chatgpt(message);
+        const assistantMessage = await createChatCompletion(message);
 
         return res.status(200).json(assistantMessage);
       } catch (error) {

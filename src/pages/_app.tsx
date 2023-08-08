@@ -10,7 +10,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 
 import '../styles/globals.css';
 import theme from '../styles/theme';
-import SwrConfig from '../components/common/SwrConfig';
+import SwrConfig from '../modules/swr/components/SwrConfig';
 
 config.autoAddCss = false;
 
