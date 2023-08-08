@@ -14,14 +14,14 @@ import { ITransaction } from '../types';
 
 type Props = {
   data: ITransaction[];
-  onRowsDelete: (Uuids: string[]) => void;
-  onSetCategory: (Uuids: string[]) => void;
+  onRowsDelete: (uuids: string[]) => void;
+  onSetCategoryClick: (Uuids: string[]) => void;
 };
 
-const PreviewTable: FC<Props> = ({
+const TransactionsTable: FC<Props> = ({
   data = [],
   onRowsDelete,
-  onSetCategory,
+  onSetCategoryClick,
 }) => {
   const columns: MRT_ColumnDef<ITransaction>[] = useMemo(
     () => [
@@ -46,7 +46,7 @@ const PreviewTable: FC<Props> = ({
             <EditableCategoryCell
               category={cell.getValue<ICategory>()}
               onEdit={() => {
-                onSetCategory([row.original?.uuid]);
+                onSetCategoryClick([row.original?.uuid]);
               }}
             />
           );
@@ -146,7 +146,7 @@ const PreviewTable: FC<Props> = ({
                 .getSelectedRowModel()
                 .rows.map((row) => row.original?.uuid);
 
-              onSetCategory(selectedUuids);
+              onSetCategoryClick(selectedUuids);
 
               table.resetRowSelection();
             }}
@@ -193,4 +193,4 @@ const PreviewTable: FC<Props> = ({
   );
 };
 
-export default memo(PreviewTable);
+export default memo(TransactionsTable);

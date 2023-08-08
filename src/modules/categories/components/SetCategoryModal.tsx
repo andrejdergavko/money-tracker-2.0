@@ -11,28 +11,30 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 import useDetermineCategory from '~modules/categories/hooks/useDetermineCategory';
 import useCategories from '~modules/categories/hooks/useCategories';
-import useEditTransactions from '~modules/transactions/hooks/useEditTransactions';
 import useTransactions from '~modules/transactions/hooks/useTransactions';
 import { Button } from '~components/ui/Button';
 
 type Props = {
-  isOpen: boolean;
   onClose: () => void;
   transactionUuids: string[];
+  onSetCategory: (categoryUuid: string) => void;
+  isLoading?: boolean;
 };
 
-const SetCategoryModal: FC<Props> = ({ isOpen, onClose, transactionUuids }) => {
+const SetCategoryModal: FC<Props> = ({
+  onClose,
+  transactionUuids,
+  onSetCategory,
+  isLoading,
+}) => {
   const [value, setValue] = useState<string>('');
   const [determinedCategory, setDeterminedCategory] = useState<string>();
 
   const { transactions = [] } = useTransactions();
   const { categories = [] } = useCategories();
 
-  const { determineCategory, isLoading } = useDetermineCategory({
+  const { determineCategory, isLoading: isDetermining } = useDetermineCategory({
     onSuccess: setDeterminedCategory,
-  });
-  const { editTransactions, isEditing } = useEditTransactions({
-    onSuccess: () => handleClose(),
   });
 
   const selectedTransactions = transactions.filter((transaction) =>
@@ -63,27 +65,19 @@ const SetCategoryModal: FC<Props> = ({ isOpen, onClose, transactionUuids }) => {
     setValue(event.target.value);
   };
 
-  const handleClose = () => {
-    setValue('');
-    setDeterminedCategory(undefined);
-    onClose();
-  };
-
   const handleSet = (event: FormEvent) => {
     event.preventDefault();
-    editTransactions({
-      uuids: transactionUuids,
-      fields: { categoryUuid: value },
-    });
+    event.stopPropagation();
+    onSetCategory(value);
   };
 
   return (
-    <Dialog open={isOpen} onClose={handleClose}>
+    <Dialog open={true} onClose={onClose}>
       <form onSubmit={handleSet}>
         <DialogTitle id="alert-dialog-title">Select the category</DialogTitle>
         <DialogContent dividers>
           Determined category:
-          {isLoading ? (
+          {isDetermining ? (
             <CircularProgress size={15} />
           ) : (
             <b className="ml-2">{determinedCategory}</b>
@@ -104,9 +98,9 @@ const SetCategoryModal: FC<Props> = ({ isOpen, onClose, transactionUuids }) => {
           </FormControl>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={onClose}>Cancel</Button>
           <Button
-            loading={isEditing}
+            loading={isLoading}
             type="submit"
             variant="contained"
             autoFocus

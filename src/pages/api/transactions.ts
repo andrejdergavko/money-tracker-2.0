@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { getServerSession } from 'next-auth/next';
 
 import { prisma } from '~modules/prisma/prisma-client';
+import { ICategory } from '~modules/categories/types';
 
 import { authOptions } from './auth/[...nextauth]';
 
@@ -9,11 +10,11 @@ export type AddTransactionArgsT = {
   userId: string;
   date: string;
   currency: string;
-  description?: string;
+  description: string;
   amount: number;
   amountInUsd: number;
   bank: string;
-  categoryUuid?: string;
+  category?: ICategory;
   originalCsvRow: string;
 };
 
@@ -68,14 +69,14 @@ export default async function transactions(
     case 'POST': {
       // create new transactions
       try {
-        const newTransactions: AddTransactionsArgsT = req.body.map(
-          (item: AddTransactionArgsT) => ({
-            ...item,
-            userId,
-          })
-        );
+        const args: AddTransactionsArgsT = req.body;
+        const newTransactions = args.map(({ category, ...rest }) => ({
+          ...rest,
+          categoryUuid: category?.uuid,
+          userId,
+        }));
 
-        const currentUserTransactions = await prisma.transaction.findMany({
+        const allUsersTransactions = await prisma.transaction.findMany({
           where: {
             userId,
           },
@@ -85,15 +86,14 @@ export default async function transactions(
         });
 
         const uniqueTransactions = newTransactions.filter((transaction) => {
-          const isTransactionUnique = !currentUserTransactions.some(
+          const isTransactionUnique = !allUsersTransactions.some(
             (item) => item.originalCsvRow === transaction.originalCsvRow
           );
-
           return isTransactionUnique;
         });
 
         await prisma.transaction.createMany({
-          data: [...uniqueTransactions],
+          data: uniqueTransactions,
         });
 
         return res.status(200).send({ success: true });

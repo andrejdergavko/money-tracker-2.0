@@ -11,11 +11,16 @@ import { BANK_OPTIONS, CURRENCIES } from 'src/constants';
 import { parseCSV } from '~modules/transactions/utils.ts/csv-transactions-parsing';
 import PreviewTable from '~modules/transactions/components/PreviewTable';
 import useAddTransactions from '~modules/transactions/hooks/useAddTransactions';
+import useTransactions from '~modules/transactions/hooks/useTransactions';
+import { inferCategories } from '~modules/transactions/utils.ts/infer-categories';
+import useCategories from '~modules/categories/hooks/useCategories';
 
 import { initialValues, validationSchema, type IValues } from './config';
 
 const ImportForm: FC = () => {
   const { addTransactions } = useAddTransactions();
+  const { transactions = [] } = useTransactions();
+  const { categories = [] } = useCategories();
   const { push } = useRouter();
 
   const {
@@ -39,13 +44,18 @@ const ImportForm: FC = () => {
     await validateForm();
 
     if (values.bank && values.exchangeRate && values.file) {
-      const transactions = await parseCSV(
+      const parsedTransactions = await parseCSV(
         values.bank,
         values.exchangeRate,
         values.file
       );
 
-      setFieldValue('transactions', transactions);
+      const transactionsWithCategories = inferCategories(
+        parsedTransactions,
+        transactions
+      );
+
+      setFieldValue('transactions', transactionsWithCategories);
     }
   };
 
@@ -53,6 +63,23 @@ const ImportForm: FC = () => {
     const newTransactions = [...values.transactions].filter(
       (item) => !uuidsToDelete.includes(item.uuid)
     );
+
+    setFieldValue('transactions', newTransactions);
+  };
+
+  const handleSetCategory = (
+    categoryUuid: string,
+    transactionUuids: string[]
+  ): void => {
+    const newTransactions = values.transactions.map((transaction) => {
+      const category = categories.find(
+        (category) => category.uuid === categoryUuid
+      );
+
+      return transactionUuids.includes(transaction.uuid)
+        ? { ...transaction, category }
+        : transaction;
+    });
 
     setFieldValue('transactions', newTransactions);
   };
@@ -194,6 +221,7 @@ const ImportForm: FC = () => {
             <PreviewTable
               data={values.transactions}
               onRowsDelete={handleRowsDelete}
+              onSetCategory={handleSetCategory}
             />
           </div>
 

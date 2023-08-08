@@ -98,7 +98,7 @@ export const parseCSV = async (
   bank: string,
   exchangeRate: number,
   file: File
-) => {
+): Promise<ParsedTransaction[]> => {
   const text = await file.text();
   const rows = parse<RowT>(text, {}).data;
 
@@ -128,7 +128,7 @@ export const parseCSV = async (
       return transactions;
     }
     default: {
-      return;
+      return [];
     }
   }
 };
