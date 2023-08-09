@@ -16,6 +16,12 @@ const isPriorRowValid = (row: string[]): boolean => {
   const description = row[1];
   const amount = row[2] && stringPriceToNumber(row[2]);
   const parsedDate = parseDate(date, 'dd.MM.yyyy HH:mm:ss', new Date());
+  const dateOfDebiting = row[4];
+  const parsedDateOfDebiting = parseDate(
+    dateOfDebiting,
+    'dd.MM.yyyy',
+    new Date()
+  );
 
   if (!isDateValid(parsedDate)) {
     return false;
@@ -24,6 +30,9 @@ const isPriorRowValid = (row: string[]): boolean => {
     return false;
   }
   if (!description) {
+    return false;
+  }
+  if (!isDateValid(parsedDateOfDebiting)) {
     return false;
   }
   return true;
@@ -74,15 +83,15 @@ export const convertPriorFileToTransactions = async (
   const filteredRows = rows.filter(isPriorRowValid);
 
   const startDate = format(
-    parseDate(filteredRows[0][0], 'dd.MM.yyyy HH:mm:ss', new Date()),
-    'yyyy-MM-dd'
-  );
-  const endDate = format(
     parseDate(
       filteredRows[filteredRows.length - 1][0],
       'dd.MM.yyyy HH:mm:ss',
       new Date()
     ),
+    'yyyy-MM-dd'
+  );
+  const endDate = format(
+    parseDate(filteredRows[0][0], 'dd.MM.yyyy HH:mm:ss', new Date()),
     'yyyy-MM-dd'
   );
 

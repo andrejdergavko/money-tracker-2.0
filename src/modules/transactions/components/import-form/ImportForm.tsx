@@ -44,11 +44,7 @@ const ImportForm: FC = () => {
     await validateForm();
 
     if (values.bank && values.exchangeRate && values.file) {
-      const parsedTransactions = await parseCSV(
-        values.bank,
-        values.exchangeRate,
-        values.file
-      );
+      const parsedTransactions = await parseCSV(values.bank, values.file);
 
       const transactionsWithCategories = inferCategories(
         parsedTransactions,
