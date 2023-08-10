@@ -107,10 +107,14 @@ const TransactionsTable: FC<Props> = ({
       enableHiding={false}
       enableColumnActions={false}
       initialState={{
-        density: 'comfortable',
+        density: 'compact',
         sorting: [{ id: 'date', desc: true }],
-        pagination: { pageSize: 50, pageIndex: 0 },
+        pagination: { pageSize: 100, pageIndex: 0 },
       }}
+      muiTableBodyRowProps={({ row }) => ({
+        onClick: row.getToggleSelectedHandler(),
+        sx: { cursor: 'pointer' },
+      })}
       positionToolbarAlertBanner="bottom"
       // TopToolbarActions
       renderTopToolbarCustomActions={({ table }) => (
@@ -120,7 +124,7 @@ const TransactionsTable: FC<Props> = ({
             disabled={
               !table?.getIsSomeRowsSelected() && !table?.getIsAllRowsSelected()
             }
-            onClick={() => {
+            onClick={(e) => {
               const selectedUuids = table
                 .getSelectedRowModel()
                 .rows.map((row) => row.original?.uuid);
@@ -171,7 +175,8 @@ const TransactionsTable: FC<Props> = ({
       renderRowActions={({ table, row }) => (
         <Button
           className="w-1 p-2 mx-3 min-w-fit"
-          onClick={() => {
+          onClick={(e) => {
+            e.stopPropagation();
             onRowsDelete([row.original?.uuid]);
           }}
         >

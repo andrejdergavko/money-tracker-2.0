@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import type { FC, MouseEventHandler } from 'react';
 import Chip from '@mui/material/Chip';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,6 +11,11 @@ type Props = {
 };
 
 const EditableCategoryCell: FC<Props> = ({ category, onEdit }) => {
+  const handleEditClick: MouseEventHandler<SVGSVGElement> = (e) => {
+    e.stopPropagation();
+    onEdit();
+  };
+
   return (
     <div className="flex flex-nowrap items-center">
       <>
@@ -27,7 +32,7 @@ const EditableCategoryCell: FC<Props> = ({ category, onEdit }) => {
           icon={faPen}
           size="lg"
           className="ml-2 cursor-pointer text-xs text-slate-600"
-          onClick={onEdit}
+          onClick={handleEditClick}
         />
       </>
     </div>

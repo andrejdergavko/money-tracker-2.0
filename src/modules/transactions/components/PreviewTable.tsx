@@ -1,4 +1,4 @@
-import { type FC, useState } from 'react';
+import { type FC, useState, memo } from 'react';
 
 import SetCategoryModal from '~modules/categories/components/SetCategoryModal';
 import TransactionsTable from '~modules/transactions/components/TransactionsTable';
@@ -52,4 +52,4 @@ const PreviewTable: FC<Props> = ({
   );
 };
 
-export default PreviewTable;
+export default memo(PreviewTable);
