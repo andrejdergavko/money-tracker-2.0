@@ -52,7 +52,7 @@ const Statistics: FC = () => {
   const handlePeriodSelect = (index: number) => setSelectedPeriod(index);
 
   const selectedTransactions =
-    selectedPeriod && groupedTransactions[selectedPeriod]
+    selectedPeriod != null && groupedTransactions[selectedPeriod]
       ? groupedTransactions[selectedPeriod].transactions
       : [];
 
@@ -83,7 +83,7 @@ const Statistics: FC = () => {
           </div>
         </div>
 
-        {selectedPeriod && (
+        {selectedPeriod != null && (
           <div className="my-5 bg-white rounded-xl overflow-hidden">
             <OverviewTable data={selectedTransactions} />
           </div>
