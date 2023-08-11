@@ -40,10 +40,14 @@ export const filterTransactions = (
 ) => {
   let filteredTransactions = [...transactions];
 
-  filteredTransactions = filterByDateRange(transactions, startDate, endDate);
+  filteredTransactions = filterByDateRange(
+    filteredTransactions,
+    startDate,
+    endDate
+  );
 
-  if (categories && categories.length !== 0) {
-    filteredTransactions = filterByCategories(transactions, categories);
+  if (categories && categories.length > 0) {
+    filteredTransactions = filterByCategories(filteredTransactions, categories);
   }
 
   return filteredTransactions;
