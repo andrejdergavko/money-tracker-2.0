@@ -58,7 +58,7 @@ const Statistics: FC = () => {
 
   return (
     <Layout>
-      <div className="mx-14 mb-14">
+      <div className="mx-10 mb-14">
         <div className="bg-white rounded-xl  overflow-hidden">
           <div className="px-4 py-3 bg-slate-100">
             <h6 className="mx-4 text-lg font-medium">Overview</h6>

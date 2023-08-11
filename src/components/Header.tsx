@@ -13,7 +13,7 @@ const Header: FC = () => {
 
   return (
     <div className="w-full pb-[370px] bg-slate-700">
-      <div className=" py-7 px-14 flex justify-between items-center">
+      <div className=" py-5 px-10 flex justify-between items-center">
         <div className="uppercase font-bold text-slate-50 text-sm">
           {PAGE_NAMES_BY_ROUTE[router.pathname]}
         </div>
@@ -28,8 +28,8 @@ const Header: FC = () => {
             Sign out
           </Button>
           <Image
-            width={48}
-            height={48}
+            width={40}
+            height={40}
             className="rounded-full relative"
             src={user?.image || '/no-avatar.jpg'}
             alt="Avatar"
