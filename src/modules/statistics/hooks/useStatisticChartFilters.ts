@@ -24,8 +24,8 @@ const defaultFilters = {
   ),
   endDate: format(new Date(), 'yyyy-MM-dd'),
   categories: [],
-  summarizeBy: MillisecondsBy.Month,
-  isStackType: false,
+  summarizeBy: MillisecondsBy.Day,
+  isStackType: true,
 };
 
 const useStatisticChartFilters = () => {
