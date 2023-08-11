@@ -4,10 +4,9 @@ import { useFormik } from 'formik';
 import Divider from '@mui/material/Divider';
 
 import Select, { MenuItem } from '~components/ui/Select';
-import { TextField as Input } from '~components/ui/Input';
 import { Button } from '~components/ui/Button';
 import { FormControl } from '~components/ui/FormControl';
-import { BANK_OPTIONS, CURRENCIES } from 'src/constants';
+import { BANK_OPTIONS } from 'src/constants';
 import { parseCSV } from '~modules/transactions/utils.ts/csv-transactions-parsing';
 import PreviewTable from '~modules/transactions/components/PreviewTable';
 import useAddTransactions from '~modules/transactions/hooks/useAddTransactions';
@@ -43,7 +42,7 @@ const ImportForm: FC = () => {
   const handleParseClick = async (): Promise<void> => {
     await validateForm();
 
-    if (values.bank && values.exchangeRate && values.file) {
+    if (values.bank && values.file) {
       const parsedTransactions = await parseCSV(values.bank, values.file);
 
       const transactionsWithCategories = inferCategories(
@@ -121,65 +120,12 @@ const ImportForm: FC = () => {
             </FormControl>
 
             <FormControl
-              className="min-w-[150px] w-2/12 px-4 relative  mb-3"
-              error={Boolean(errors.currency)}
-              helperText={errors.currency}
-              helperTextId="currency-error-text"
-            >
-              <label
-                className="block uppercase text-slate-600 text-xs font-bold mb-2"
-                htmlFor="currency-select-label"
-              >
-                Currency
-              </label>
-              <Select
-                labelId="currency-select-label"
-                aria-describedby="currency-error-text"
-                id="currency-select"
-                name="currency"
-                value={values.currency}
-                onChange={handleChange}
-              >
-                {CURRENCIES.map(({ id, code }) => (
-                  <MenuItem key={id} value={id}>
-                    {code}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-
-            <FormControl
-              className="w-36 px-4 relative mb-3"
-              error={Boolean(errors.exchangeRate)}
-              helperText={errors.exchangeRate}
-              helperTextId="exchange-rate-error-text"
-            >
-              <label
-                className="block uppercase text-slate-600 text-xs font-bold mb-2"
-                htmlFor="exchange-rate-input"
-              >
-                Exchange rate
-              </label>
-              <Input
-                aria-describedby="exchange-rate-error-text"
-                id="exchange-rate-input"
-                name="exchangeRate"
-                value={values.exchangeRate}
-                onChange={handleChange}
-                type="number"
-              />
-            </FormControl>
-
-            <FormControl
               className="flex-1 min-w-[240px] px-4 relative mb-3"
               error={Boolean(errors.file)}
               helperText={errors.file}
               helperTextId="file-error-text"
             >
-              <label
-                className="block uppercase text-slate-600 text-xs font-bold mb-2"
-                htmlFor="exchange-rate-input"
-              >
+              <label className="block uppercase text-slate-600 text-xs font-bold mb-2">
                 Upload CSV File
               </label>
               <input

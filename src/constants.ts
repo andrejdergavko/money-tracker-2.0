@@ -25,7 +25,6 @@ export const PAGE_NAMES_BY_ROUTE: { [key: string]: string } = {
 };
 
 export enum Banks {
-  ipko = 'ipko',
   prior = 'prior',
 }
 
@@ -33,23 +32,6 @@ export const BANK_OPTIONS: IBank[] = [
   {
     id: Banks.prior,
     label: 'Prior bank',
-  },
-  {
-    id: Banks.ipko,
-    label: 'iPKO',
-  },
-];
-
-export const CURRENCIES: ICurrency[] = [
-  {
-    id: 'BYN',
-    label: 'Belarusian ruble',
-    code: 'BYN',
-  },
-  {
-    id: 'PLN',
-    label: 'Polish zloty',
-    code: 'PLN',
   },
 ];
 
