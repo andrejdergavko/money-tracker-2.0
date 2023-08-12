@@ -237,6 +237,7 @@ export default function StatisticChart({
             ...defaultStyles,
             backgroundColor: 'rgba(0,0,0,0.7)',
             borderRadius: '7px',
+            zIndex: 100,
           }}
         >
           <Tooltip data={tooltipData} colors={colors} />
