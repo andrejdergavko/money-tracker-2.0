@@ -1,12 +1,12 @@
-name: Type checking
+name: CI
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
 jobs:
-  type-check:
-    name: Type checking
+  ci-app:
+    name: CI app
     runs-on: ubuntu-latest
     steps:
       - name: Get repository code
@@ -15,3 +15,7 @@ jobs:
         run: yarn
       - name: Type checking
         run: yarn type-check
+      - name: Testing
+        run: yarn test
+      - name: Linting
+        run: yarn lint
