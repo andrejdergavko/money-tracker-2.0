@@ -1,18 +1,19 @@
 import { format } from 'date-fns';
 
-import useQueryParam, {
+import {
   stringType,
   booleanType,
   stringArrayType,
   numberType,
-} from 'src/hooks/useQueryParam';
+} from '~hooks/useQuery/config';
+import useQueryParams from '~hooks/useQuery/useQueryParams';
 
-import { MillisecondsBy } from '../../../constants';
+import { MillisecondsBy } from 'src/constants';
 
 type FiltersT = {
   startDate: string;
   endDate: string;
-  categories?: string[];
+  categories: string[];
   summarizeBy: number;
   isStackType: boolean;
 };
@@ -29,38 +30,25 @@ const defaultFilters = {
 };
 
 const useStatisticChartFilters = () => {
-  const [startDate, setStartDate] = useQueryParam('startDate', stringType);
-  const [endDate, setEndDate] = useQueryParam('endDate', stringType);
-  const [categories, setCategories] = useQueryParam(
-    'categories',
-    stringArrayType
-  );
-  const [summarizeBy, setSummarizeBy] = useQueryParam(
-    'summarizeBy',
-    numberType
-  );
-  const [isStackType, setIsStackType] = useQueryParam(
-    'isStackType',
-    booleanType
-  );
+  const [params, setParams] = useQueryParams({
+    startDate: stringType,
+    endDate: stringType,
+    categories: stringArrayType,
+    summarizeBy: numberType,
+    isStackType: booleanType,
+  });
 
   const filters: FiltersT = {
-    startDate: startDate != null ? startDate : defaultFilters.startDate,
-    endDate: endDate != null ? endDate : defaultFilters.endDate,
-    categories: categories != null ? categories : defaultFilters.categories,
-    summarizeBy: summarizeBy != null ? summarizeBy : defaultFilters.summarizeBy,
-    isStackType: isStackType != null ? isStackType : defaultFilters.isStackType,
+    startDate: params.startDate ?? defaultFilters.startDate,
+    endDate: params.endDate ?? defaultFilters.endDate,
+    categories: params.categories ?? defaultFilters.categories,
+    summarizeBy: params.summarizeBy ?? defaultFilters.summarizeBy,
+    isStackType: params.isStackType ?? defaultFilters.isStackType,
   };
 
   return {
     filters,
-    setters: {
-      setStartDate,
-      setEndDate,
-      setCategories,
-      setSummarizeBy,
-      setIsStackType,
-    },
+    setFilters: setParams,
   };
 };
 

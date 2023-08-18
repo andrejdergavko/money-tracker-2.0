@@ -1,30 +1,6 @@
-import { useRouter } from 'next/router';
-
-interface ConfigT<T> {
+export interface ConfigT<T> {
   encode: (value: T) => string | number | string[] | number[] | undefined;
   decode: (value: string | string[] | undefined) => T | undefined;
-}
-
-export default function useQueryParam<T>(
-  paramName: string,
-  config: ConfigT<T>,
-  defaultValue?: T
-): [T | undefined, (value: T) => void] {
-  const { push, query } = useRouter();
-
-  const setParam = (value: T) => {
-    const encodedValue = config.encode(value);
-
-    push({ query: { ...query, [paramName]: encodedValue } }, undefined, {
-      shallow: true,
-    });
-  };
-
-  const decodedValue = query[paramName]
-    ? config.decode(query[paramName])
-    : defaultValue;
-
-  return [decodedValue, setParam];
 }
 
 export const stringType: ConfigT<string> = {
@@ -34,7 +10,7 @@ export const stringType: ConfigT<string> = {
 
 export const numberType: ConfigT<number> = {
   encode: (value) => value,
-  decode: (value) => Number(value),
+  decode: (value) => (value != null ? Number(value) : undefined),
 };
 
 export const booleanType: ConfigT<boolean> = {

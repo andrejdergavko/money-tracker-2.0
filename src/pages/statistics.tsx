@@ -3,7 +3,8 @@ import ParentSize from '@visx/responsive/lib/components/ParentSize';
 
 import useCategories from '~modules/categories/hooks/useCategories';
 import useStatisticChartFilters from '~modules/statistics/hooks/useStatisticChartFilters';
-import useQueryParam, { numberType } from 'src/hooks/useQueryParam';
+import useQueryParam from '~hooks/useQuery/useQueryParam';
+import { numberType } from '~hooks/useQuery/config';
 import StatisticChart from '~modules/statistics/components/statistic-chart';
 import Layout from '~components/Layout';
 import OverviewTable from '~modules/transactions/components/OverviewTable';
