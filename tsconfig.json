@@ -23,7 +23,8 @@
       "~app-types/*": ["src/types/*"],
       "~types/*": ["src/types/*"],
       "~utils/*": ["src/utils/*"],
-      "~modules/*": ["src/modules/*"]
+      "~modules/*": ["src/modules/*"],
+      "~hooks/*": ["src/hooks/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
