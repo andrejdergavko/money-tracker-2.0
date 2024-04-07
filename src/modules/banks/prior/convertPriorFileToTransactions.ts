@@ -82,22 +82,28 @@ export const convertPriorFileToTransactions = async (
 
   const filteredRows = rows.filter(isPriorRowValid);
 
+  const sortedRows = filteredRows.sort((a, b) => {
+    return (
+      parseDate(b[0], 'dd.MM.yyyy HH:mm:ss', new Date()).getTime() -
+      parseDate(a[0], 'dd.MM.yyyy HH:mm:ss', new Date()).getTime()
+    );
+  });
   const startDate = format(
     parseDate(
-      filteredRows[filteredRows.length - 1][0],
+      sortedRows[sortedRows.length - 1][0],
       'dd.MM.yyyy HH:mm:ss',
       new Date()
     ),
     'yyyy-MM-dd'
   );
   const endDate = format(
-    parseDate(filteredRows[0][0], 'dd.MM.yyyy HH:mm:ss', new Date()),
+    parseDate(sortedRows[0][0], 'dd.MM.yyyy HH:mm:ss', new Date()),
     'yyyy-MM-dd'
   );
 
   const exchangeRates = await getExchangeRates(startDate, endDate);
 
-  const transactions = filteredRows.map((row) => {
+  const transactions = sortedRows.map((row) => {
     return convertPriorRowToTransaction(row, exchangeRates);
   });
 
