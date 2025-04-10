@@ -34,6 +34,7 @@ const ImportForm: FC = () => {
     initialValues,
     validationSchema,
     onSubmit: async (values) => {
+      //@ts-ignore
       const result = await addTransactions(values.transactions);
       result.success && push('/');
     },

@@ -1,16 +1,20 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { importFromEmails } from '~modules/emails-import/import-from-emails';
+import cronTask from '~modules/emails-import/start-importing-from-emails-cron-job';
+
+let isTaskStarted = false;
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  try {
-    const transactions = await importFromEmails();
-    res.status(200).json({ success: true, transactions: transactions });
-  } catch (error: any) {
-    console.error('Error fetching emails:', error);
-    res.status(500).json({ success: false, error: error.message });
+  if (!isTaskStarted) {
+    cronTask.start();
+    isTaskStarted = true;
   }
+
+  res.status(200).json({
+    success: true,
+    message: 'Cron task is started',
+  });
 }
 

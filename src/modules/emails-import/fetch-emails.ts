@@ -60,7 +60,7 @@ export const fetchEmails = async (
 
     await connection.end();
 
-    return emails.filter((email) => email !== null);
+    return (emails as ParsedEmail[]).filter((email) => email !== null);
   } catch (error) {
     console.error('Error in fetchEmails:', error);
     throw error;
