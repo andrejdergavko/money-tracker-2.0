@@ -1,7 +1,7 @@
 {
   "crons": [
     {
-      "path": "/api/cron/import-from-sms",
+      "path": "/api/cron/import-from-emails",
       "schedule": "* * * * *"
     }
   ]

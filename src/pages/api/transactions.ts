@@ -5,6 +5,7 @@ import { prisma } from '~modules/prisma/prisma-client';
 import { ICategory } from '~modules/categories/types';
 
 import { authOptions } from './auth/[...nextauth]';
+import { Banks } from '../../constants';
 
 export type AddTransactionArgsT = {
   userId: string;
@@ -13,7 +14,7 @@ export type AddTransactionArgsT = {
   description: string;
   amount: number;
   amountInUsd: number;
-  bank: string;
+  bank: Banks;
   category?: ICategory;
   originalCsvRow: string;
 };
@@ -150,3 +151,4 @@ export default async function transactions(
       return;
   }
 }
+
