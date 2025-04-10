@@ -7,7 +7,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (!isTaskStarted) {
+  if (!isTaskStarted && process.env.NODE_ENV === 'production') {
     cronTask.start();
     isTaskStarted = true;
   }
