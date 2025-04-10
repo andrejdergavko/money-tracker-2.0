@@ -1,5 +1,12 @@
 export { default } from 'next-auth/middleware';
 
 export const config = {
-  matcher: ['/', '/statistics/:path*', '/import/:path*', '/api/:path*'],
+  matcher: [
+    // Защищенные страницы
+    '/',
+    '/statistics/:path*',
+    '/import/:path*',
+    // API маршруты, кроме /api/cron/*
+    '/api/((?!cron/).)*'
+  ]
 };
