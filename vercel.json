@@ -1,0 +1,9 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/import-from-sms",
+      "schedule": "0 10 * * *"
+    }
+  ]
+}
+
