@@ -1,20 +1,23 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import cronTask from '~modules/emails-import/start-importing-from-emails-cron-job';
-
-let isTaskStarted = false;
+import { importFromEmails } from '~modules/emails-import/import-from-emails';
+import { ITransaction } from '~modules/transactions/types';
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (!isTaskStarted && process.env.NODE_ENV === 'production') {
-    cronTask.start();
-    isTaskStarted = true;
+  let transactions: ITransaction[] = [];
+
+  if (process.env.NODE_ENV === 'production') {
+    console.log('Importing from emails...');
+    transactions = await importFromEmails();
+    console.log('Import completed:', transactions);
   }
 
   res.status(200).json({
     success: true,
-    message: 'Cron task is started',
+    message: 'Import completed',
+    transactions,
   });
 }
 
