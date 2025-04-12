@@ -8,11 +8,11 @@ export default async function handler(
 ) {
   let transactions: ITransaction[] = [];
 
-  // if (process.env.NODE_ENV === 'production') {
-  console.log('Importing from emails...');
-  transactions = await importFromEmails();
-  console.log('Import completed:', transactions);
-  // }
+  if (process.env.NODE_ENV === 'production') {
+    console.log('Importing from emails...');
+    transactions = await importFromEmails();
+    console.log('Import completed:', transactions);
+  }
 
   res.status(200).json({
     success: true,
