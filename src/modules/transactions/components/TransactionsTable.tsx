@@ -46,6 +46,7 @@ const TransactionsTable: FC<Props> = ({
             <EditableCategoryCell
               category={cell.getValue<ICategory>()}
               onEdit={() => {
+                //@ts-ignore
                 onSetCategoryClick([row.original?.uuid]);
               }}
             />
@@ -101,6 +102,7 @@ const TransactionsTable: FC<Props> = ({
     <MaterialReactTable
       columns={columns}
       data={data}
+      //@ts-ignore
       getRowId={(originalRow) => String(originalRow.uuid)}
       enableRowSelection
       enableDensityToggle={false}
@@ -127,6 +129,7 @@ const TransactionsTable: FC<Props> = ({
             onClick={(e) => {
               const selectedUuids = table
                 .getSelectedRowModel()
+                //@ts-ignore
                 .rows.map((row) => row.original?.uuid);
 
               onRowsDelete(selectedUuids);
@@ -148,6 +151,7 @@ const TransactionsTable: FC<Props> = ({
             onClick={() => {
               const selectedUuids = table
                 .getSelectedRowModel()
+                //@ts-ignore
                 .rows.map((row) => row.original?.uuid);
 
               onSetCategoryClick(selectedUuids);
@@ -177,6 +181,7 @@ const TransactionsTable: FC<Props> = ({
           className="w-1 p-2 mx-3 min-w-fit"
           onClick={(e) => {
             e.stopPropagation();
+            //@ts-ignore
             onRowsDelete([row.original?.uuid]);
           }}
         >
@@ -199,3 +204,4 @@ const TransactionsTable: FC<Props> = ({
 };
 
 export default memo(TransactionsTable);
+

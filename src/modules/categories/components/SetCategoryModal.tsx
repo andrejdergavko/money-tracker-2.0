@@ -38,6 +38,7 @@ const SetCategoryModal: FC<Props> = ({
   });
 
   const selectedTransactions = transactions.filter((transaction) =>
+    //@ts-ignore
     transactionUuids.includes(transaction.uuid)
   );
 
@@ -114,3 +115,4 @@ const SetCategoryModal: FC<Props> = ({
 };
 
 export default SetCategoryModal;
+
