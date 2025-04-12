@@ -31,9 +31,12 @@ export const fetchEmails = async (
 
     await connection.openBox('Счета');
 
+    const searchDate = new Date(lastTransactionDate);
+    searchDate.setDate(searchDate.getDate() - 30);
+
     const searchCriteria = [
       'ALL',
-      ['SINCE', lastTransactionDate.toISOString()],
+      ['SINCE', searchDate.toISOString()],
       ['FROM', 'sms-extra@mts.by'],
       ['TEXT', 'Priorbank. Karta'],
     ];

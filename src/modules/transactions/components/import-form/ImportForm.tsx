@@ -11,7 +11,7 @@ import { parseCSV } from '~modules/transactions/utils.ts/csv-transactions-parsin
 import PreviewTable from '~modules/transactions/components/PreviewTable';
 import useAddTransactions from '~modules/transactions/hooks/useAddTransactions';
 import useTransactions from '~modules/transactions/hooks/useTransactions';
-import { inferCategories } from '~modules/transactions/utils.ts/infer-categories';
+import { addCategories } from '~modules/transactions/utils.ts/substitute-categories';
 import useCategories from '~modules/categories/hooks/useCategories';
 
 import { initialValues, validationSchema, type IValues } from './config';
@@ -46,7 +46,7 @@ const ImportForm: FC = () => {
     if (values.bank && values.file) {
       const parsedTransactions = await parseCSV(values.bank, values.file);
 
-      const transactionsWithCategories = inferCategories(
+      const transactionsWithCategories = addCategories(
         parsedTransactions,
         transactions
       );
@@ -57,6 +57,7 @@ const ImportForm: FC = () => {
 
   const handleRowsDelete = (uuidsToDelete: string[]): void => {
     const newTransactions = [...values.transactions].filter(
+      //@ts-ignore
       (item) => !uuidsToDelete.includes(item.uuid)
     );
 
@@ -72,6 +73,7 @@ const ImportForm: FC = () => {
         (category) => category.uuid === categoryUuid
       );
 
+      //@ts-ignore
       return transactionUuids.includes(transaction.uuid)
         ? { ...transaction, category }
         : transaction;

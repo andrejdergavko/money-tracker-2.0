@@ -1,9 +1,9 @@
 import { prisma } from '~modules/prisma/prisma-client';
-import { ITransaction } from './types';
+import { TransactionToSave } from './types';
 
 export const saveTransactions = async (
   userId: string,
-  newTransactions: ITransaction[]
+  newTransactions: TransactionToSave[]
 ) => {
   const allUsersTransactions = await prisma.transaction.findMany({
     where: { userId },

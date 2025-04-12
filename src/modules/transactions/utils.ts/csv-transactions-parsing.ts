@@ -1,10 +1,10 @@
 import { convertPriorFileToTransactions } from '~modules/banks/prior/convertPriorFileToTransactions';
-import { ParsedTransaction } from '~modules/transactions/types';
+import { TransactionWithoutUserId } from '~modules/transactions/types';
 
 export const parseCSV = async (
   bank: string,
   file: File
-): Promise<ParsedTransaction[]> => {
+): Promise<TransactionWithoutUserId[]> => {
   switch (bank) {
     case 'prior': {
       return convertPriorFileToTransactions(file);
@@ -14,3 +14,4 @@ export const parseCSV = async (
     }
   }
 };
+

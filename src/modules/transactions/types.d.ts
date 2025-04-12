@@ -1,5 +1,6 @@
+import { ICategory } from '~modules/categories/types';
+
 export interface ITransaction {
-  uuid: string;
   userId: string;
   date: string;
   currency: string;
@@ -11,4 +12,11 @@ export interface ITransaction {
   originalCsvRow: string;
 }
 
-export type ParsedTransaction = Omit<ITransaction, 'userId'>;
+export type TransactionWithoutUserId = Omit<ITransaction, 'userId'>;
+
+export type TransactionWithoutUuid = Omit<ITransaction, 'uuid'>;
+
+export type TransactionToSave = Omit<ITransaction, 'category'> & {
+  categoryUuid?: string | null;
+};
+

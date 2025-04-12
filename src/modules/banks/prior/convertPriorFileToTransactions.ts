@@ -4,10 +4,8 @@ import { isNumeric, stringPriceToNumber } from 'src/utils';
 import parseDate from 'date-fns/parse';
 import isDateValid from 'date-fns/isValid';
 import format from 'date-fns/format';
-import { v4 as uuidv4 } from 'uuid';
-
 import { ExchangeRate, getExchangeRates } from '~modules/nbrb/api';
-import { ParsedTransaction } from '~modules/transactions/types';
+import { TransactionWithoutUserId } from '~modules/transactions/types';
 
 import { Banks } from 'src/constants';
 
@@ -41,7 +39,7 @@ const isPriorRowValid = (row: string[]): boolean => {
 const convertPriorRowToTransaction = (
   row: ParsedFileRow,
   exchangeRates: ExchangeRate[]
-): ParsedTransaction => {
+): TransactionWithoutUserId => {
   const date = format(
     parseDate(row[0], 'dd.MM.yyyy HH:mm:ss', new Date()),
     'yyyy-MM-dd'
@@ -63,7 +61,6 @@ const convertPriorRowToTransaction = (
       : Number((amount / exchangeRate.Cur_OfficialRate).toFixed(2));
 
   return {
-    uuid: uuidv4(),
     date,
     currency,
     description: row[1],
@@ -76,7 +73,7 @@ const convertPriorRowToTransaction = (
 
 export const convertPriorFileToTransactions = async (
   file: File
-): Promise<ParsedTransaction[]> => {
+): Promise<TransactionWithoutUserId[]> => {
   const text = await file.text();
   const rows = parse<ParsedFileRow>(text, {}).data;
 
@@ -109,3 +106,4 @@ export const convertPriorFileToTransactions = async (
 
   return transactions;
 };
+

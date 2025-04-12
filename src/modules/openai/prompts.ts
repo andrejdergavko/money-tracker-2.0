@@ -19,5 +19,6 @@ export const determineCategoryPrompt = (
     There are several categories: ${categories
       .map((category) => category.label)
       .join(', ')}.
-    Your response is always just JSON object which looks like this example structure: {"category": {{transaction category}}} without words.`;
+    Your response is always just JSON object which looks like this example structure: {"category": {{transaction category}}} without words. Without word "Json"`;
 };
+

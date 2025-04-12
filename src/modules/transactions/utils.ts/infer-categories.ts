@@ -1,19 +1,26 @@
-import { ITransaction, ParsedTransaction } from '../types';
+import { prisma } from '~modules/prisma/prisma-client';
+import { determineCategoryPrompt } from '~modules/openai/prompts';
+import { createChatCompletion } from '~modules/openai/api-req';
+import { TransactionWithoutUuid } from '../types';
 
-export const inferCategories = (
-  newTransactions: ParsedTransaction[],
-  oldTransactions: ITransaction[]
-) => {
-  return newTransactions.map((newTransaction) => {
-    const oldCategory = oldTransactions.find(
-      (oldTransaction) =>
-        oldTransaction.description === newTransaction.description
-    )?.category;
+const inferCategories = async (transactions: TransactionWithoutUuid[]) => {
+  const categories = await prisma.category.findMany();
 
-    if (oldCategory) {
-      return { ...newTransaction, category: oldCategory };
+  for (let i = 0; i < transactions.length; i++) {
+    const transaction = transactions[i];
+
+    if (!transaction.category) {
+      const message = determineCategoryPrompt([transaction], categories);
+      const assistantMessage = await createChatCompletion(message);
+
+      transaction.category = categories.find(
+        (category) => category.label === JSON.parse(assistantMessage).category
+      );
     }
+  }
 
-    return newTransaction;
-  });
+  return transactions;
 };
+
+export default inferCategories;
+
