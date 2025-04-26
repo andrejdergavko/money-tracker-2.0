@@ -19,20 +19,22 @@ export const convertPriorEmailsToTransaction = async (
         return rateDate === date;
       });
 
+      const negativeAmount = -amount;
+
       if (!exchangeRate) {
         throw new Error('Exchange rate not found');
       }
 
       const amountInUsd =
         currency === 'USD'
-          ? amount
-          : Number((amount / exchangeRate.Cur_OfficialRate).toFixed(2));
+          ? negativeAmount
+          : Number((negativeAmount / exchangeRate.Cur_OfficialRate).toFixed(2));
 
       return {
         userId: USER_UUID,
         date,
         currency,
-        amount,
+        amount: negativeAmount,
         amountInUsd,
         bank,
         description,
